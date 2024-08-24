@@ -1,0 +1,72 @@
+﻿<Page x:Class="LibraryApp.View.EditBookPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LibraryApp.View"
+      xmlns:vm="clr-namespace:LibraryApp.ViewModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EditBookPage">
+
+    <Page.DataContext>
+        <vm:EditBookViewModel/>
+    </Page.DataContext>
+    
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <DataGrid ItemsSource="{Binding Books}"
+                SelectedItem="{Binding SelectedBook}"
+                CanUserAddRows="False" CanUserDeleteRows="False"
+                AutoGenerateColumns="False">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="2*"/>
+                        <DataGridTextColumn Header="Release year" Binding="{Binding ReleaseYear}" Width="2*"/>
+                        <DataGridTextColumn Header="Publisher" Binding="{Binding Publisher}" Width="3*"/>
+                        <DataGridTextColumn Header="Field of interest" Binding="{Binding FieldOfInterest}" Width="3*"/>
+                        <DataGridTextColumn Header="Is lost" Binding="{Binding IsLost}" Width="1*"/>
+                        <DataGridTextColumn Header="Is lendable" Binding="{Binding IsLendable}" Width="1*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <StackPanel Grid.Column="1">
+                    <Label Content="Title"/>
+                    <TextBox Margin="3" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="Release year"/>
+                    <TextBox Margin="3" Text="{Binding ReleaseYear, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="Publisher"/>
+                    <TextBox Margin="3" Text="{Binding Publisher, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="Field of interest"/>
+                    <TextBox Margin="3" Text="{Binding FieldOfInterest, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Button Content="Add book" Command="{Binding AddBook}"
+                            Height="25" Width="120" Margin="7,20,7,7"/>
+                    <Button Content="Edit book" Command="{Binding EditBook}"
+                            Height="25" Width="120" Margin="7"/>
+                    <Button Content="Delete book" Command="{Binding DeleteBook}"
+                            Height="25" Width="120" Margin="7"/>
+                    <Button Content="Mark as lost" Command="{Binding MarkBookAsLost}"
+                            Height="25" Width="120" Margin="7"/>
+                    <Button Content="Mark as unlendable" Command="{Binding MarkBookAsUnlendable}"
+                            Height="25" Width="120" Margin="7"/>
+                </StackPanel>
+            </Grid>
+
+
+
+
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,69 @@
+﻿<Page x:Class="LibraryApp.View.EditSubscriberPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LibraryApp.View"
+      xmlns:vm="clr-namespace:LibraryApp.ViewModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EditSubscriberPage">
+
+    <Page.DataContext>
+        <vm:EditSubscriberViewModel/>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                
+                <DataGrid ItemsSource="{Binding Subscribers}"
+                    SelectedItem="{Binding SelectedSubscriber}"
+                    CanUserAddRows="False" CanUserDeleteRows="False"
+                    AutoGenerateColumns="False">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="2*"/>
+                        <DataGridTextColumn Header="CNP" Binding="{Binding CNP}" Width="2*"/>
+                        <DataGridTextColumn Header="Address" Binding="{Binding Address}" Width="3*"/>
+                        <DataGridTextColumn Header="Phone number" Binding="{Binding PhoneNumber}" Width="3*"/>
+                        <DataGridTextColumn Header="Is Registered" Binding="{Binding IsRegistered}" Width="2*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <StackPanel Grid.Column="1">
+                    <Label Content="Name"/>
+                    <TextBox Margin="3" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="CNP"/>
+                    <TextBox Margin="3" Text="{Binding CNP, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="Address"/>
+                    <TextBox Margin="3" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="PhoneNumber"/>
+                    <TextBox Margin="3" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                    <!--<Label Content="IsRegistered"/>
+                    <TextBox Margin="3" Text="{Binding IsRegistered, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>-->
+                    
+                    <Button Content="Add subscriber" Command="{Binding AddSubscriberCommand}"
+                            Height="25" Width="120" Margin="7,40,7,7"/>
+                    <Button Content="Edit subscriber" Command="{Binding EditSubscriberCommand}"
+                            Height="25" Width="120" Margin="7"/>
+                    <Button Content="Deregister subscriber" Command="{Binding ToggleRegisteredCommand}"
+                            Height="25" Width="120" Margin="7"/>
+                </StackPanel>
+            </Grid>
+            
+
+            
+
+        </Grid>
+    </Grid>
+</Page>
