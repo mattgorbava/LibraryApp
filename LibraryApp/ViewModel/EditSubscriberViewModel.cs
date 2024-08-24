@@ -103,7 +103,7 @@ namespace LibraryApp.ViewModel
 
         private void EditSubscriber()
         {
-            subscriberBLL.AddSubscriber(new Subscriber
+            subscriberBLL.EditSubscriber(new Subscriber
             {
                 PersonId = selectedSubscriber.PersonId,
                 Name = name,
