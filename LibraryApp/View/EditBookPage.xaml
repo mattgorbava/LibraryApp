@@ -51,15 +51,15 @@
                     <Label Content="Field of interest"/>
                     <TextBox Margin="3" Text="{Binding FieldOfInterest, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <Button Content="Add book" Command="{Binding AddBook}"
+                    <Button Content="Add book" Command="{Binding AddBookCommand}"
                             Height="25" Width="120" Margin="7,20,7,7"/>
-                    <Button Content="Edit book" Command="{Binding EditBook}"
+                    <Button Content="Edit book" Command="{Binding EditBookCommand}"
                             Height="25" Width="120" Margin="7"/>
-                    <Button Content="Delete book" Command="{Binding DeleteBook}"
+                    <Button Content="Delete book" Command="{Binding DeleteBookCommand}"
                             Height="25" Width="120" Margin="7"/>
-                    <Button Content="Mark as lost" Command="{Binding MarkBookAsLost}"
+                    <Button Content="Mark as lost" Command="{Binding ToggleLostCommand}"
                             Height="25" Width="120" Margin="7"/>
-                    <Button Content="Mark as unlendable" Command="{Binding MarkBookAsUnlendable}"
+                    <Button Content="Mark as unlendable" Command="{Binding ToggleLendableCommand}"
                             Height="25" Width="120" Margin="7"/>
                 </StackPanel>
             </Grid>

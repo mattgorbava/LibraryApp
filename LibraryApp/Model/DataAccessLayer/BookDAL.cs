@@ -94,6 +94,7 @@ namespace LibraryApp.Model.DataAccessLayer
                 command.Parameters.AddWithValue("@Publisher", book.Publisher);
                 command.Parameters.AddWithValue("@FieldOfInterest", book.FieldOfInterest);
                 command.Parameters.AddWithValue("@IsLendable", book.IsLendable);
+                command.Parameters.AddWithValue("@IsLost", book.IsLost);
                 command.ExecuteNonQuery();
             }
             catch (Exception ex) { throw ex; }
