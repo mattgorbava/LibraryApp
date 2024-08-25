@@ -57,6 +57,21 @@ namespace LibraryApp.Model.DataAccessLayer
             catch (Exception ex) { throw ex; }
             finally { connection.Close(); }
         }
+
+        public void AddAuthorToBook(Author author, Book book)
+        {
+            var connection = DbHelper.Connection;
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("AddAuthorToBook", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@AuthorId", author.AuthorId);
+                command.Parameters.AddWithValue("@BookId", book.BookId);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex) { throw ex; }
+            finally { connection.Close(); }
     }
 
 }
