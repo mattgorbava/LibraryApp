@@ -35,5 +35,10 @@ namespace LibraryApp.Model.BusinessLogicLayer
         {
             authorDAL.AddAuthorToBook(author, book);
         }
+        
+        public void RemoveAuthorFromBook(Author author, Book book)
+        {
+            authorDAL.RemoveAuthorFromBook(author, book);
+        }
     }
 }

@@ -12,17 +12,19 @@ namespace LibraryApp.ViewModel
         public ObservableCollection<Author> Authors { get; set; }
         
         public RelayCommand AddAuthorCommand;
-        public RelayCommand DeleteAuthorCommand => new RelayCommand(execute => DeleteAuthor(), canExecute => SelectedAuthor != null);
+        public RelayCommand DeleteAuthorCommand;
         
         public EditAuthorViewModel()
         {
             Authors = new ObservableCollection<Author>(authorBLL.GetAuthors());
             AddAuthorCommand = new RelayCommand(execute => AddAuthor(), canExecute => !string.IsNullOrEmpty(Name));
+            DeleteAuthorCommand = new RelayCommand(execute => DeleteAuthor(), canExecute => SelectedAuthor != null);
         }
         public EditAuthorViewModel(Book book) 
         { 
             selectedBook = book;
             AddAuthorCommand = new RelayCommand(execute => AddAuthorToBook(), canExecute => SelectedAuthor != null);
+            DeleteAuthorCommand = new RelayCommand(execute => RemoveAuthorFromBook(), canExecute => SelectedAuthor != null);
         }
 
         private Author selectedAuthor;
@@ -61,6 +63,10 @@ namespace LibraryApp.ViewModel
         private void AddAuthorToBook()
         {
             authorBLL.AddAuthorToBook(selectedAuthor, selectedBook);
+        }
+        private void RemoveAuthorFromBook()
+        {
+            authorBLL.RemoveAuthorFromBook(selectedAuthor, selectedBook);
         }
     }
 }

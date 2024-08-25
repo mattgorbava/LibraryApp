@@ -72,6 +72,22 @@ namespace LibraryApp.Model.DataAccessLayer
             }
             catch (Exception ex) { throw ex; }
             finally { connection.Close(); }
-    }
+        }
 
+        public void RemoveAuthorFromBook(Author author, Book book)
+        {
+            var connection = DbHelper.Connection;
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("RemoveAuthorFromBook", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@AuthorId", author.AuthorId);
+                command.Parameters.AddWithValue("@BookId", book.BookId);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex) { throw ex; }
+            finally { connection.Close(); }
+
+    }
 }
