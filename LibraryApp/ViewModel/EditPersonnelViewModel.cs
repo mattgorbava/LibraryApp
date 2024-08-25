@@ -22,7 +22,7 @@ namespace LibraryApp.ViewModel
 
         public EditPersonnelViewModel()
         {
-            Personnel = new ObservableCollection<Personnel>(personnelBLL.GetPersonnel());
+            //Personnel = new ObservableCollection<Personnel>(personnelBLL.GetPersonnel());
         }
 
         private Personnel selectedPersonnel;

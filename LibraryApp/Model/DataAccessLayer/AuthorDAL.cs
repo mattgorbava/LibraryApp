@@ -89,5 +89,6 @@ namespace LibraryApp.Model.DataAccessLayer
             catch (Exception ex) { throw ex; }
             finally { connection.Close(); }
 
+        }
     }
 }

@@ -16,13 +16,14 @@ namespace LibraryApp.ViewModel
         
         public EditAuthorViewModel()
         {
-            Authors = new ObservableCollection<Author>(authorBLL.GetAuthors());
+            //Authors = new ObservableCollection<Author>(authorBLL.GetAuthors());
             AddAuthorCommand = new RelayCommand(execute => AddAuthor(), canExecute => !string.IsNullOrEmpty(Name));
             DeleteAuthorCommand = new RelayCommand(execute => DeleteAuthor(), canExecute => SelectedAuthor != null);
         }
         public EditAuthorViewModel(Book book) 
         { 
             selectedBook = book;
+            //Authors = new ObservableCollection<Author>(authorBLL.GetAuthors());
             AddAuthorCommand = new RelayCommand(execute => AddAuthorToBook(), canExecute => SelectedAuthor != null);
             DeleteAuthorCommand = new RelayCommand(execute => RemoveAuthorFromBook(), canExecute => SelectedAuthor != null);
         }

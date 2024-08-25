@@ -14,7 +14,7 @@ namespace LibraryApp.ViewModel
         
         public EditBookViewModel()
         {
-            Books = new ObservableCollection<Book>(bookBLL.GetBooks());
+            //Books = new ObservableCollection<Book>(bookBLL.GetBooks());
         }
 
         public RelayCommand AddBookCommand => new RelayCommand(execute => AddBook(), canExecute => TextBoxFieldsNotNull());
