@@ -39,7 +39,7 @@ namespace LibraryApp.Model.BusinessLogicLayer
 
         public void ToggleRegistered(Subscriber subscriber)
         {
-            subscriberDAL.ToggleRegistered(subscriber);
+            subscriberDAL.EditSubscriber(subscriber);
         }
     }
 }

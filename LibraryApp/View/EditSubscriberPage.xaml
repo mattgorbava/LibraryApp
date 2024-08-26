@@ -26,17 +26,17 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 
-                <DataGrid ItemsSource="{Binding Subscribers}"
-                    SelectedItem="{Binding SelectedSubscriber}"
+                <DataGrid ItemsSource="{Binding Subscribers, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    SelectedItem="{Binding SelectedSubscriber, UpdateSourceTrigger=PropertyChanged}"
                     CanUserAddRows="False" CanUserDeleteRows="False"
                     AutoGenerateColumns="False">
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="2*"/>
-                        <DataGridTextColumn Header="CNP" Binding="{Binding CNP}" Width="2*"/>
-                        <DataGridTextColumn Header="Address" Binding="{Binding Address}" Width="3*"/>
-                        <DataGridTextColumn Header="Phone number" Binding="{Binding PhoneNumber}" Width="3*"/>
-                        <DataGridTextColumn Header="Is Registered" Binding="{Binding IsRegistered}" Width="2*"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="2*"/>
+                        <DataGridTextColumn Header="CNP" Binding="{Binding CNP, UpdateSourceTrigger=PropertyChanged}" Width="2*"/>
+                        <DataGridTextColumn Header="Address" Binding="{Binding Address, UpdateSourceTrigger=PropertyChanged}" Width="3*"/>
+                        <DataGridTextColumn Header="Phone number" Binding="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" Width="3*"/>
+                        <DataGridTextColumn Header="Is Registered" Binding="{Binding IsRegistered, UpdateSourceTrigger=PropertyChanged}" Width="2*"/>
                     </DataGrid.Columns>
                 </DataGrid>
 

@@ -25,7 +25,7 @@ namespace LibraryApp.Model.DataAccessLayer
                     book.FieldOfInterest = reader.GetString(4);
                     book.IsLost = reader.GetBoolean(5);
                     book.IsLendable = reader.GetBoolean(6);
-                    book.PersonId = reader.GetInt32(7);
+                    //book.PersonId = reader.GetInt32(7);
                     books.Add(book);
                 }
             }
@@ -70,11 +70,11 @@ namespace LibraryApp.Model.DataAccessLayer
                 connection.Open();
                 SqlCommand command = new SqlCommand("AddBook", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@BookId", book.BookId);
                 command.Parameters.AddWithValue("@Title", book.Title);
                 command.Parameters.AddWithValue("@ReleaseYear", book.ReleaseYear);
                 command.Parameters.AddWithValue("@Publisher", book.Publisher);
                 command.Parameters.AddWithValue("@FieldOfInterest", book.FieldOfInterest);
-                command.Parameters.AddWithValue("@IsLendable", book.IsLendable);
                 command.ExecuteNonQuery();
             }
             catch(Exception ex) { throw ex; }
@@ -89,6 +89,7 @@ namespace LibraryApp.Model.DataAccessLayer
                 connection.Open();
                 SqlCommand command = new SqlCommand("EditBook", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@BookId", book.BookId);
                 command.Parameters.AddWithValue("@Title", book.Title);
                 command.Parameters.AddWithValue("@ReleaseYear", book.ReleaseYear);
                 command.Parameters.AddWithValue("@Publisher", book.Publisher);

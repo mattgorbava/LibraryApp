@@ -13,7 +13,7 @@ namespace LibraryApp.ViewModel
         public ObservableCollection<Subscriber> Subscribers { get; set; }
 
         public RelayCommand AddSubscriberCommand => new RelayCommand(execute => AddSubscriber(), canExecute => TextBoxFieldsNotNull());
-        public RelayCommand ToggleRegisteredCommand => new RelayCommand(execute => ToggleRegistered(), canExecute => SelectedSubscriber != null);
+        public RelayCommand ToggleRegisteredCommand => new RelayCommand(execute => ToggleDeregistered(), canExecute => SelectedSubscriber != null);
         public RelayCommand EditSubscriberCommand => new RelayCommand(execute => EditSubscriber(), canExecute => SelectedSubscriber != null);
 
         public EditSubscriberViewModel()
@@ -87,23 +87,25 @@ namespace LibraryApp.ViewModel
 
         private void AddSubscriber()
         {
-            subscriberBLL.AddSubscriber(new Subscriber
+            Subscriber toBeAdded = new Subscriber
             {
                 Name = name,
                 CNP = cnp,
                 Address = address,
                 PhoneNumber = phoneNumber
-            });
+            };
+            subscriberBLL.AddSubscriber(toBeAdded);
+            Subscribers.Add(toBeAdded);
         }
 
-        private void ToggleRegistered()
-        {
-            subscriberBLL.ToggleRegistered(selectedSubscriber);
-        }
+        //private void ToggleRegistered()
+        //{
+        //    subscriberBLL.ToggleRegistered(selectedSubscriber);
+        //}
 
         private void EditSubscriber()
         {
-            subscriberBLL.EditSubscriber(new Subscriber
+            Subscriber editedSubscriber = new Subscriber
             {
                 PersonId = selectedSubscriber.PersonId,
                 Name = name,
@@ -111,12 +113,16 @@ namespace LibraryApp.ViewModel
                 Address = address,
                 PhoneNumber = phoneNumber,
                 IsRegistered = selectedSubscriber.IsRegistered
-            });
+            };
+            subscriberBLL.EditSubscriber(editedSubscriber);
+            //Subscribers.Remove(selectedSubscriber);
+            //Subscribers.Add(editedSubscriber);
         }
 
         private void ToggleDeregistered()
         {
-            subscriberBLL.ToggleRegistered(selectedSubscriber);
+            selectedSubscriber.IsRegistered = !selectedSubscriber.IsRegistered;
+            subscriberBLL.EditSubscriber(selectedSubscriber);
         }
 
         public bool TextBoxFieldsNotNull()

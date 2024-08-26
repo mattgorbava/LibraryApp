@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryApp.Migrations
 {
     [DbContext(typeof(LibraryDBContext))]
-    [Migration("20240815151114_PersonnelUpdate")]
-    partial class PersonnelUpdate
+    [Migration("20240825130734_InitialCreateFinalLibraryDb")]
+    partial class InitialCreateFinalLibraryDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,7 +57,7 @@ namespace LibraryApp.Migrations
                     b.Property<bool>("IsLost")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PersonId")
+                    b.Property<int?>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<string>("Publisher")
@@ -86,8 +86,8 @@ namespace LibraryApp.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("BorrowDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("BorrowDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("BookId", "AuthorId");
 
@@ -155,9 +155,7 @@ namespace LibraryApp.Migrations
                 {
                     b.HasOne("LibraryApp.Model.Entities.Subscriber", "Person")
                         .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PersonId");
 
                     b.Navigation("Person");
                 });

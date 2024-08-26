@@ -14,7 +14,7 @@ namespace LibraryApp.ViewModel
         
         public EditBookViewModel()
         {
-            //Books = new ObservableCollection<Book>(bookBLL.GetBooks());
+            Books = new ObservableCollection<Book>(bookBLL.GetBooks());
         }
 
         public RelayCommand AddBookCommand => new RelayCommand(execute => AddBook(), canExecute => TextBoxFieldsNotNull());
@@ -24,13 +24,13 @@ namespace LibraryApp.ViewModel
         public RelayCommand ToggleLendableCommand => new RelayCommand(execute => ToggleLendable(), canExecute => SelectedBook != null);
 
         private Book selectedBook;
-
         public Book SelectedBook
         {
             get { return selectedBook; }
             set 
             {
                 selectedBook = value;
+                BookId = selectedBook.BookId;
                 Title = selectedBook.Title;
                 ReleaseYear = selectedBook.ReleaseYear;
                 Publisher = selectedBook.Publisher;
@@ -39,12 +39,29 @@ namespace LibraryApp.ViewModel
             }
         }
 
+        private string bookId;
+
+        public string BookId
+        {
+            get { return bookId; }
+            set 
+            {
+                bookId = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private string title;
 
         public string Title
         {
             get { return title; }
-            set { title = value; }
+            set 
+            {
+                title = value; 
+                OnPropertyChanged();
+            }
         }
 
         private int releaseYear;
@@ -52,7 +69,11 @@ namespace LibraryApp.ViewModel
         public int ReleaseYear
         {
             get { return releaseYear; }
-            set { releaseYear = value; }
+            set 
+            {
+                releaseYear = value;
+                OnPropertyChanged();
+            }
         }
 
         private string publisher;
@@ -60,7 +81,11 @@ namespace LibraryApp.ViewModel
         public string Publisher
         {
             get { return publisher; }
-            set { publisher = value; }
+            set 
+            { 
+                publisher = value;
+                OnPropertyChanged();
+            }
         }
 
         private string fieldOfInterest;
@@ -68,19 +93,25 @@ namespace LibraryApp.ViewModel
         public string FieldOfInterest
         {
             get { return fieldOfInterest; }
-            set { fieldOfInterest = value; }
+            set 
+            { 
+                fieldOfInterest = value;
+                OnPropertyChanged();
+            }
         }
 
         private void AddBook()
         {
-            bookBLL.AddBook(new Book()
+            Book toBeAdded = new Book()
             {
+                BookId = bookId,
                 Title = Title,
                 ReleaseYear = ReleaseYear,
                 Publisher = Publisher,
                 FieldOfInterest = FieldOfInterest
-            });
-            //Books.Add(book);
+            };
+            bookBLL.AddBook(toBeAdded);
+            Books.Add(toBeAdded);
         }
 
         private void EditBook()
@@ -98,7 +129,7 @@ namespace LibraryApp.ViewModel
         private void DeleteBook()
         {
             bookBLL.DeleteBook(selectedBook);
-            //Books.Remove(book);
+            //Books.Remove(selectedBook);
         }
 
         private void ToggleLost()

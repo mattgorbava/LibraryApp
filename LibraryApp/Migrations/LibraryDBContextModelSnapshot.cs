@@ -54,7 +54,7 @@ namespace LibraryApp.Migrations
                     b.Property<bool>("IsLost")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PersonId")
+                    b.Property<int?>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<string>("Publisher")
@@ -152,9 +152,7 @@ namespace LibraryApp.Migrations
                 {
                     b.HasOne("LibraryApp.Model.Entities.Subscriber", "Person")
                         .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PersonId");
 
                     b.Navigation("Person");
                 });

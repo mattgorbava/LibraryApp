@@ -42,6 +42,8 @@
                 </DataGrid>
 
                 <StackPanel Grid.Column="1">
+                    <Label Content="UniqueId(string)"/>
+                    <TextBox Margin="3" Text="{Binding BookId, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label Content="Title"/>
                     <TextBox Margin="3" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label Content="Release year"/>
@@ -51,14 +53,18 @@
                     <Label Content="Field of interest"/>
                     <TextBox Margin="3" Text="{Binding FieldOfInterest, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <Button Content="Add book" Command="{Binding AddBookCommand}"
-                            Height="25" Width="120" Margin="7,20,7,7"/>
-                    <Button Content="Edit book" Command="{Binding EditBookCommand}"
-                            Height="25" Width="120" Margin="7"/>
-                    <Button Content="Delete book" Command="{Binding DeleteBookCommand}"
-                            Height="25" Width="120" Margin="7"/>
-                    <Button Content="Mark as lost" Command="{Binding ToggleLostCommand}"
-                            Height="25" Width="120" Margin="7"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Add book" Command="{Binding AddBookCommand}"
+                                Height="25" Width="60" Margin="7,20,7,7"/>
+                        <Button Content="Edit book" Command="{Binding EditBookCommand}"
+                                Height="25" Width="60" Margin="7,20,7,7"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Delete book" Command="{Binding DeleteBookCommand}"
+                                Height="25" Width="60" Margin="7"/>
+                        <Button Content="Mark as lost" Command="{Binding ToggleLostCommand}"
+                                Height="25" Width="60" Margin="7"/>
+                    </StackPanel>
                     <Button Content="Mark as unlendable" Command="{Binding ToggleLendableCommand}"
                             Height="25" Width="120" Margin="7"/>
                 </StackPanel>

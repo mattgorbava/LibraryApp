@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LibraryApp.Model.Entities
 {
@@ -14,7 +15,7 @@ namespace LibraryApp.Model.Entities
         public string FieldOfInterest { get; set; }
         public bool IsLost { get; set; }
         public bool IsLendable { get; set; }
-        public int PersonId { get; set; }
-        public virtual Subscriber Person { get; set; }
+        public int? PersonId { get; set; }
+        public virtual Subscriber? Person { get; set; }
     }
 }

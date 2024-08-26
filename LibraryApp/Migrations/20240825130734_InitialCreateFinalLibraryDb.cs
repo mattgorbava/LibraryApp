@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LibraryApp.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdatedLibraryDBContext : Migration
+    public partial class InitialCreateFinalLibraryDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,7 +31,7 @@ namespace LibraryApp.Migrations
                     PersonnelId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmploymentDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    EmploymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeregistered = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -67,7 +67,7 @@ namespace LibraryApp.Migrations
                     FieldOfInterest = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsLost = table.Column<bool>(type: "bit", nullable: false),
                     IsLendable = table.Column<bool>(type: "bit", nullable: false),
-                    PersonId = table.Column<int>(type: "int", nullable: false)
+                    PersonId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,8 +76,7 @@ namespace LibraryApp.Migrations
                         name: "FK_Book_Subscriber_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Subscriber",
-                        principalColumn: "PersonId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "PersonId");
                 });
 
             migrationBuilder.CreateTable(
@@ -86,7 +85,7 @@ namespace LibraryApp.Migrations
                 {
                     BookId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     AuthorId = table.Column<int>(type: "int", nullable: false),
-                    BorrowDate = table.Column<DateOnly>(type: "date", nullable: false)
+                    BorrowDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

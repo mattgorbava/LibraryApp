@@ -62,11 +62,13 @@ namespace LibraryApp.ViewModel
 
         private void AddPersonnel()
         {
-            personnelBLL.AddPersonnel(new Personnel 
+            Personnel toBeAdded = new Personnel
             {
                 Name = name,
-                EmploymentDate = employmentDate 
-            });
+                EmploymentDate = employmentDate
+            };
+            personnelBLL.AddPersonnel(toBeAdded);
+            Personnel.Add(toBeAdded);
         }
 
         private void EditPersonnel()

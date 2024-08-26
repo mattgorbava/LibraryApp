@@ -66,7 +66,7 @@ namespace LibraryApp.Model.DataAccessLayer
             try
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("AddSubscriber", connection);
+                SqlCommand command = new SqlCommand("AddSubscriberUpdated", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@Name", subscriber.Name);
                 command.Parameters.AddWithValue("@CNP", subscriber.CNP);
@@ -86,10 +86,12 @@ namespace LibraryApp.Model.DataAccessLayer
                 connection.Open();
                 SqlCommand command = new SqlCommand("EditSubscriber", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@PersonId", subscriber.PersonId);
                 command.Parameters.AddWithValue("@CNP", subscriber.CNP);
                 command.Parameters.AddWithValue("@Name", subscriber.Name);
                 command.Parameters.AddWithValue("@Address", subscriber.Address);
                 command.Parameters.AddWithValue("@PhoneNumber", subscriber.PhoneNumber);
+                command.Parameters.AddWithValue("@IsRegistered", subscriber.IsRegistered);
                 command.ExecuteNonQuery();
             }
             catch (Exception ex) { throw ex; }
