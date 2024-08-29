@@ -1,12 +1,10 @@
 ﻿using LibraryApp.Model.BusinessLogicLayer;
 using LibraryApp.Model.Entities;
 using LibraryApp.MVVM;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LibraryApp.View;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace LibraryApp.ViewModel
 {
@@ -14,83 +12,57 @@ namespace LibraryApp.ViewModel
     {
         private readonly PersonnelBLL personnelBLL = new PersonnelBLL();
 
-        public ObservableCollection<Personnel> Personnel { get; set; }
-
-        public RelayCommand AddPersonnelCommand => new RelayCommand(execute => AddPersonnel(), canExecute => TextBoxFieldsNotNull());
-        public RelayCommand EditPersonnelCommand => new RelayCommand(execute => EditPersonnel(), canExecute => SelectedPersonnel != null);
-        public RelayCommand ToggleDeregisteredCommand => new RelayCommand(execute => ToggleDeregistered(), canExecute => SelectedPersonnel != null);
+        public ICommand SaveCommand { get; set; }
 
         public EditPersonnelViewModel()
-        {
-            //Personnel = new ObservableCollection<Personnel>(personnelBLL.GetPersonnel());
+        { 
+            SaveCommand = new RelayCommand<object>(AddPersonnel, canExecute => TextBoxFieldsNotNull());
         }
 
-        private Personnel selectedPersonnel;
-
-        public Personnel SelectedPersonnel
+        public EditPersonnelViewModel(Personnel personnel)
         {
-            get { return selectedPersonnel; }
-            set
-            {
-                selectedPersonnel = value;
-                Name = selectedPersonnel.Name;
-                EmploymentDate = selectedPersonnel.EmploymentDate;
-                OnPropertyChanged();
-            }
+            SaveCommand = new RelayCommand<object>(EditPersonnel, canExecute => TextBoxFieldsNotNull());
+            PersonnelId = personnel.PersonnelId;
+            Name = personnel.Name;
+            EmploymentDate = personnel.EmploymentDate;
         }
 
-        private string name;
-
-        public string Name
-        {
-            get { return name; }
-            set
-            {
-                name = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private DateTime employmentDate;
-
-        public DateTime EmploymentDate
-        {
-            get { return employmentDate; }
-            set { employmentDate = value; }
-        }
+        private int PersonnelId { get; set; }
+        public string Name { get; set; }
+        public DateTime EmploymentDate { get; set; }
 
 
-        private void AddPersonnel()
+        private void AddPersonnel(object? obj)
         {
             Personnel toBeAdded = new Personnel
             {
-                Name = name,
-                EmploymentDate = employmentDate
+                Name = this.Name,
+                EmploymentDate = this.EmploymentDate
             };
             personnelBLL.AddPersonnel(toBeAdded);
-            Personnel.Add(toBeAdded);
+
+            MessageBox.Show("Personnel added successfully!");
+            var currentPage = obj as Page;
+            currentPage?.NavigationService?.Navigate(new StartPage());
         }
 
-        private void EditPersonnel()
+        private void EditPersonnel(object? obj)
         {
             personnelBLL.EditPersonnel(new Personnel
             { 
-                PersonnelId = selectedPersonnel.PersonnelId,
-                Name = name, 
-                EmploymentDate = employmentDate, 
-                IsDeregistered = selectedPersonnel.IsDeregistered    
+                PersonnelId = this.PersonnelId,
+                Name = this.Name,
+                EmploymentDate = this.EmploymentDate
             });
-        }
+            MessageBox.Show("Personnel edited successfully!");
 
-        private void ToggleDeregistered()
-        {
-            selectedPersonnel.IsDeregistered = !selectedPersonnel.IsDeregistered;
-            personnelBLL.EditPersonnel(selectedPersonnel);
+            var currentPage = obj as Page;
+            currentPage?.NavigationService?.Navigate(new StartPage());
         }
 
         private bool TextBoxFieldsNotNull()
         {
-            return !string.IsNullOrEmpty(name) /*&& vezi cum e DateOnly cand nu ii dai valoare (ex: la bool e false default), nu e null*/;
+            return !string.IsNullOrEmpty(Name);
         }
     }
 }

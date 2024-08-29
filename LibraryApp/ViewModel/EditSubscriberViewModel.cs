@@ -1,8 +1,6 @@
 ﻿using LibraryApp.Model.BusinessLogicLayer;
 using LibraryApp.Model.Entities;
 using LibraryApp.MVVM;
-using System.Collections.ObjectModel;
-using LibraryApp.ViewModel;
 using System.Windows.Controls;
 using LibraryApp.View;
 using System.Windows.Input;
@@ -40,10 +38,10 @@ namespace LibraryApp.ViewModel
         {
             Subscriber subscriber = new Subscriber()
             {
-                Name = Name,
-                CNP = CNP,
-                Address = Address,
-                PhoneNumber = PhoneNumber,
+                Name = this.Name,
+                CNP = this.CNP,
+                Address = this.Address,
+                PhoneNumber = this.PhoneNumber,
                 IsRegistered = true
             };
             subscriberBLL.AddSubscriber(subscriber);
@@ -57,11 +55,11 @@ namespace LibraryApp.ViewModel
         {
             Subscriber subscriber = new Subscriber()
             {
-                PersonId = PersonId,
-                Name = Name,
-                CNP = CNP,
-                Address = Address,
-                PhoneNumber = PhoneNumber,
+                PersonId = this.PersonId,
+                Name = this.Name,
+                CNP = this.CNP,
+                Address = this.Address,
+                PhoneNumber = this.PhoneNumber,
                 IsRegistered = true
             };
             subscriberBLL.EditSubscriber(subscriber);

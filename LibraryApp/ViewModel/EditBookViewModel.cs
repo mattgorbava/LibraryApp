@@ -2,9 +2,6 @@
 using LibraryApp.Model.Entities;
 using LibraryApp.MVVM;
 using LibraryApp.View;
-using System.Collections.ObjectModel;
-using System.Net;
-using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -41,11 +38,11 @@ namespace LibraryApp.ViewModel
         {
             Book toBeAdded = new Book()
             {
-                BookId = BookId,
-                Title = Title,
-                ReleaseYear = ReleaseYear,
-                Publisher = Publisher,
-                FieldOfInterest = FieldOfInterest
+                BookId = this.BookId,
+                Title = this.Title,
+                ReleaseYear = this.ReleaseYear,
+                Publisher = this.Publisher,
+                FieldOfInterest = this.FieldOfInterest
             };
             bookBLL.AddBook(toBeAdded);
             MessageBox.Show("Book added successfully!");
@@ -58,11 +55,11 @@ namespace LibraryApp.ViewModel
         {
             bookBLL.EditBook(new Book()
             {
-                BookId = BookId,
-                Title = Title,
-                ReleaseYear = ReleaseYear,
-                Publisher = Publisher,
-                FieldOfInterest = FieldOfInterest
+                BookId = this.BookId,
+                Title = this.Title,
+                ReleaseYear = this.ReleaseYear,
+                Publisher = this.Publisher,
+                FieldOfInterest = this.FieldOfInterest
             });
             MessageBox.Show("Book edited successfully!");
 
