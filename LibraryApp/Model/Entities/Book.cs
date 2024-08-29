@@ -15,7 +15,6 @@ namespace LibraryApp.Model.Entities
         public string FieldOfInterest { get; set; }
         public bool IsLost { get; set; }
         public bool IsLendable { get; set; }
-        public int? PersonId { get; set; }
-        public virtual Subscriber? Person { get; set; }
+        public bool IsLent { get; set; }
     }
 }

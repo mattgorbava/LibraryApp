@@ -2,127 +2,74 @@
 using LibraryApp.Model.Entities;
 using LibraryApp.MVVM;
 using System.Collections.ObjectModel;
+using LibraryApp.ViewModel;
+using System.Windows.Controls;
+using LibraryApp.View;
+using System.Windows.Input;
+using System.Windows;
 
 namespace LibraryApp.ViewModel
 {
     public class EditSubscriberViewModel : BaseViewModel
     {
-
+        //private MainWindowViewModel mainWindowVM = new MainWindowViewModel();
         private readonly SubscriberBLL subscriberBLL = new SubscriberBLL();
 
-        public ObservableCollection<Subscriber> Subscribers { get; set; }
-
-        public RelayCommand AddSubscriberCommand => new RelayCommand(execute => AddSubscriber(), canExecute => TextBoxFieldsNotNull());
-        public RelayCommand ToggleRegisteredCommand => new RelayCommand(execute => ToggleDeregistered(), canExecute => SelectedSubscriber != null);
-        public RelayCommand EditSubscriberCommand => new RelayCommand(execute => EditSubscriber(), canExecute => SelectedSubscriber != null);
-
+        public ICommand SaveCommand { get; set; }
         public EditSubscriberViewModel()
         {
-            Subscribers = new ObservableCollection<Subscriber>(subscriberBLL.GetSubscribers());
+            SaveCommand = new RelayCommand<object>(AddSubscriber, canExecute => TextBoxFieldsNotNull());
         } 
 
-        private Subscriber selectedSubscriber;
-
-        public Subscriber SelectedSubscriber
+        public EditSubscriberViewModel(Subscriber subscriber)
         {
-            get { return selectedSubscriber; }
-            set
-            {
-                selectedSubscriber = value;
-                Name = selectedSubscriber.Name;
-                CNP = selectedSubscriber.CNP;
-                Address = selectedSubscriber.Address;
-                PhoneNumber = selectedSubscriber.PhoneNumber;
-                OnPropertyChanged();
-            }
+            SaveCommand = new RelayCommand<object>(EditSubscriber, canExecute => TextBoxFieldsNotNull());
+            PersonId = subscriber.PersonId;
+            Name = subscriber.Name;
+            CNP = subscriber.CNP;
+            Address = subscriber.Address;
+            PhoneNumber = subscriber.PhoneNumber;
         }
 
-        private string name;
+        private int PersonId { get; set; }
+        public string Name { get; set; }
+        public string CNP { get; set; }
+        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
 
-        public string Name
+        private void AddSubscriber(object? obj)
         {
-            get { return name; }
-            set
+            Subscriber subscriber = new Subscriber()
             {
-                name = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string cnp;
-
-        public string CNP
-        {
-            get { return cnp; }
-            set
-            {
-                cnp = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string address;
-
-        public string Address
-        {
-            get { return address; }
-            set
-            {
-                address = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string phoneNumber;
-
-        public string PhoneNumber
-        {
-            get { return phoneNumber; }
-            set
-            {
-                phoneNumber = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private void AddSubscriber()
-        {
-            Subscriber toBeAdded = new Subscriber
-            {
-                Name = name,
-                CNP = cnp,
-                Address = address,
-                PhoneNumber = phoneNumber
+                Name = Name,
+                CNP = CNP,
+                Address = Address,
+                PhoneNumber = PhoneNumber,
+                IsRegistered = true
             };
-            subscriberBLL.AddSubscriber(toBeAdded);
-            Subscribers.Add(toBeAdded);
+            subscriberBLL.AddSubscriber(subscriber);
+            MessageBox.Show("Subscriber added successfully!");
+
+            var currentPage = obj as Page;
+            currentPage?.NavigationService?.Navigate(new StartPage());
         }
 
-        //private void ToggleRegistered()
-        //{
-        //    subscriberBLL.ToggleRegistered(selectedSubscriber);
-        //}
-
-        private void EditSubscriber()
+        private void EditSubscriber(object? obj)
         {
-            Subscriber editedSubscriber = new Subscriber
+            Subscriber subscriber = new Subscriber()
             {
-                PersonId = selectedSubscriber.PersonId,
-                Name = name,
-                CNP = cnp,
-                Address = address,
-                PhoneNumber = phoneNumber,
-                IsRegistered = selectedSubscriber.IsRegistered
+                PersonId = PersonId,
+                Name = Name,
+                CNP = CNP,
+                Address = Address,
+                PhoneNumber = PhoneNumber,
+                IsRegistered = true
             };
-            subscriberBLL.EditSubscriber(editedSubscriber);
-            //Subscribers.Remove(selectedSubscriber);
-            //Subscribers.Add(editedSubscriber);
-        }
+            subscriberBLL.EditSubscriber(subscriber);
+            MessageBox.Show("Subscriber edited successfully!");
 
-        private void ToggleDeregistered()
-        {
-            selectedSubscriber.IsRegistered = !selectedSubscriber.IsRegistered;
-            subscriberBLL.EditSubscriber(selectedSubscriber);
+            var currentPage = obj as Page;
+            currentPage?.NavigationService?.Navigate(new StartPage());
         }
 
         public bool TextBoxFieldsNotNull()

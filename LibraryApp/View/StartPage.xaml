@@ -1,0 +1,148 @@
+﻿<Page x:Class="LibraryApp.View.StartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LibraryApp.View"
+      xmlns:vm="clr-namespace:LibraryApp.ViewModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StartPage">
+
+    <Grid Background="White">
+        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Margin="10" Padding="10">
+            <TabControl>
+                <TabItem Header="Subscribers">
+                    <StackPanel>
+                        <DataGrid x:Name="dgSubscribers"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  CanUserAddRows="False"
+                                      Height="280"
+                                      SelectedItem="{Binding SelectedSubscriber}"
+                                      ItemsSource="{Binding Subscribers}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                                <DataGridTextColumn Header="CNP" Binding="{Binding CNP}" />
+                                <DataGridTextColumn Header="Address" Binding="{Binding Address}" />
+                                <DataGridTextColumn Header="Phone number" Binding="{Binding PhoneNumber}" />
+                                <DataGridTextColumn Header="Is registered" Binding="{Binding IsRegistered}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center">
+                                <Button 
+                                    Content="Add subscriber" 
+                                    Command="{Binding AddSubscriberCommand}" 
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                    Margin="5" 
+                                    Padding="5" 
+                                    Width="110" 
+                                    Height="30" />
+                                <Button Content="Edit subscriber"
+                                    Command="{Binding EditSubscriberCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                    Margin="5"
+                                    Padding="5"
+                                    Width="110"
+                                    Height="30" />
+                                <Button Content="Deregister subscriber" Command="{Binding DeregisterSubscriberCommand}" 
+                                        Margin="5" Padding="0" Width="120" Height="30" />
+
+                            </StackPanel>
+                            
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
+                                <Button 
+                                    Content="Lend book" 
+                                    Command="{Binding LendBookCommand}" 
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                    Margin="5" 
+                                    Padding="5" 
+                                    Width="110" 
+                                    Height="30" />
+                                <Button Content="Return book"
+                                    Command="{Binding ReturnBookCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                    Margin="5"
+                                    Padding="5"
+                                    Width="110"
+                                    Height="30" />
+                                <!--<Button Content="Deregister subscriber" Command="{Binding DeregisterSubscriberCommand}" 
+                                        Margin="5" Padding="0" Width="120" Height="30" />-->
+
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </TabItem>
+
+                <TabItem Header="Books">
+                    <StackPanel>
+                        <DataGrid x:Name="dgBooks"
+                                AutoGenerateColumns="False"
+                                IsReadOnly="True"
+                                CanUserAddRows="False"
+                                Height="280"
+                                SelectedItem="{Binding SelectedBook}"
+                                ItemsSource="{Binding Books}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Title" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Release year" Binding="{Binding ReleaseYear}"/>
+                                <DataGridTextColumn Header="Publisher" Binding="{Binding Publisher}"/>
+                                <DataGridTextColumn Header="Field of interest" Binding="{Binding FieldOfInterest}"/>
+                                <DataGridTextColumn Header="Is lendable" Binding="{Binding IsLendable}"/>
+                                <DataGridTextColumn Header="Is lost" Binding="{Binding IsLost}"/>
+                                <DataGridTextColumn Header="Is lent" Binding="{Binding IsLent}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
+                            <Button Content="Add book" Command="{Binding AddBookCommand}" 
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                    Margin="5" Padding="5" Width="110" Height="30" />
+                            <Button Content="Edit book" Command="{Binding EditBookCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                    Margin="5" Padding="5" Width="110" Height="30" />
+                            <Button Content="Delete book" Command="{Binding DeleteBookCommand}"
+                                    Margin="5" Padding="5" Width="110" Height="30" />
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+                
+                <TabItem Header="Personnel">
+                    <StackPanel>
+                        <DataGrid x:Name="dgPersonnel"
+                                AutoGenerateColumns="False"
+                                IsReadOnly="True"
+                                CanUserAddRows="False"
+                                Height="280"
+                                SelectedItem="{Binding SelectedPersonnel}"
+                                ItemsSource="{Binding Personnel}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Title" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Employment date" Binding="{Binding EmploymentDate}"/>
+                                <DataGridTextColumn Header="Is deregistered" Binding="{Binding IsDeregistered}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
+                            <Button Content="Add personnel" Command="{Binding AddPersonnelCommand}" 
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                    Margin="5" Padding="5" Width="110" Height="30" />
+                            <Button Content="Edit personnel" Command="{Binding EditPersonnelCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                    Margin="5" Padding="5" Width="110" Height="30" />
+                            <Button Content="Deregister personnel" Command="{Binding DeregisterPersonnelCommand}"
+                                    Margin="5" Padding="0" Width="120" Height="30" />
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </Border>
+    </Grid>
+</Page>

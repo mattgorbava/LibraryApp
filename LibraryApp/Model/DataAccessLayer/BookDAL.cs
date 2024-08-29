@@ -55,7 +55,6 @@ namespace LibraryApp.Model.DataAccessLayer
                     book.FieldOfInterest = reader.GetString(4);
                     book.IsLost = reader.GetBoolean(5);
                     book.IsLendable = reader.GetBoolean(6);
-                    book.PersonId = reader.GetInt32(7);
                 }
             }
             catch (Exception ex) { throw ex; }
@@ -111,6 +110,38 @@ namespace LibraryApp.Model.DataAccessLayer
                 SqlCommand command = new SqlCommand("DeleteBook", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@BookId", book.BookId);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex) { throw ex; }
+            finally { connection.Close(); }
+        }
+
+        public void LendBook(Book book, Subscriber subscriber)
+        {
+            var connection = DbHelper.Connection;
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("LendBook", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@BookId", book.BookId);
+                command.Parameters.AddWithValue("@PersonId", subscriber.PersonId);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex) { throw ex; }
+            finally { connection.Close(); }
+        }
+
+        public void ReturnBook(Book book, Subscriber subscriber)
+        {
+            var connection = DbHelper.Connection;
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("ReturnBook", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@BookId", book.BookId);
+                command.Parameters.AddWithValue("@PersonId", subscriber.PersonId);
                 command.ExecuteNonQuery();
             }
             catch (Exception ex) { throw ex; }

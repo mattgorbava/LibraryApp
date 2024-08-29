@@ -1,6 +1,4 @@
-﻿using LibraryApp.Model.Entities;
-using LibraryApp.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,19 +16,13 @@ using System.Windows.Shapes;
 namespace LibraryApp.View
 {
     /// <summary>
-    /// Interaction logic for EditBookPage.xaml
+    /// Interaction logic for StartPage.xaml
     /// </summary>
-    public partial class EditBookPage : Page
+    public partial class StartPage : Page
     {
-        public EditBookPage()
+        public StartPage()
         {
             InitializeComponent();
-        }
-        public EditBookPage(Subscriber subscriber)
-        {
-            InitializeComponent();
-            DataContext = new EditBookViewModel(subscriber);
-
         }
     }
 }

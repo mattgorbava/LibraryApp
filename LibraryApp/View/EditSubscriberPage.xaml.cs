@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using LibraryApp.Model.Entities;
+using LibraryApp.ViewModel;
+using System.Windows.Controls;
 
 namespace LibraryApp.View
 {
@@ -10,6 +12,13 @@ namespace LibraryApp.View
         public EditSubscriberPage()
         {
             InitializeComponent();
+        }
+
+        public EditSubscriberPage(Subscriber subscriber)
+        {
+            InitializeComponent();
+            DataContext = new EditSubscriberViewModel(subscriber);
+            
         }
     }
 }

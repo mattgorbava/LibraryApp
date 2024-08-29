@@ -13,10 +13,10 @@
     </Window.DataContext>
 
     <Grid>
-        <!--<DockPanel>
+        <DockPanel>
             <Frame x:Name="MainFrame" Content="{Binding CurrentPage}"/>
-        </DockPanel>-->
-        <TabControl ItemsSource="{Binding Pages}">
+        </DockPanel>
+        <!--<TabControl ItemsSource="{Binding Pages}" SelectedItem="{Binding SelectedPage}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Header}" />
@@ -28,6 +28,8 @@
                     <Frame Source="{Binding PageSource}" NavigationUIVisibility="Hidden"/>
                 </DataTemplate>
             </TabControl.ContentTemplate>
-        </TabControl>
+        </TabControl>-->
+
+        
     </Grid> 
 </Window>

@@ -13,8 +13,48 @@
         <vm:EditSubscriberViewModel/>
     </Page.DataContext>
 
-    <Grid>
-        <Grid>
+    <Grid Background="White">
+        <StackPanel>
+            <Grid>
+                <Label x:Name="AddSubscriberLabel" Content="Add subscriber" HorizontalAlignment="Center" 
+                       FontSize="30" FontWeight="Bold" Margin="0,0,0,20" Visibility="Hidden"/>
+                <Label x:Name="EditSubscriberLabel" Content="Edit subscriber" HorizontalAlignment="Center" 
+                       FontSize="30" FontWeight="Bold" Margin="0,0,0,20" Visibility="Hidden"/>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel HorizontalAlignment="Right">
+                    <Label Content="Name:" HorizontalAlignment="Center" Margin="5,20,5,10"/>
+                    <Label Content="CNP:" HorizontalAlignment="Center" Margin="5,10"/>
+                    <Label Content="Address:" HorizontalAlignment="Center" Margin="5,10"/>
+                    <Label Content="Phone number:" HorizontalAlignment="Center" Margin="5,10"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left">
+                    <TextBox Width="100" Height="20" Margin="5,25,5,10"/>
+                    <TextBox Width="100" Height="20" Margin="5,15"/>
+                    <TextBox Width="100" Height="20" Margin="5,10,5,15"/>
+                    <TextBox Width="100" Height="20" Margin="5,10"/>
+                </StackPanel>
+            </Grid>
+
+            <Button Content="Save" HorizontalAlignment="Center" FontSize="25" Margin="0,40,0,0"
+                    Width="100" Height="40" FontWeight="DemiBold"/>
+        </StackPanel>
+    </Grid>
+</Page>
+    
+    
+    
+    
+    
+
+        <!--<Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="15"/>
                 <RowDefinition/>
@@ -49,21 +89,28 @@
                     <TextBox Margin="3" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label Content="PhoneNumber"/>
                     <TextBox Margin="3" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                    <!--<Label Content="IsRegistered"/>
-                    <TextBox Margin="3" Text="{Binding IsRegistered, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>-->
+                    --><!--<Label Content="IsRegistered"/>
+                    <TextBox Margin="3" Text="{Binding IsRegistered, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>--><!--
                     
                     <Button Content="Add subscriber" Command="{Binding AddSubscriberCommand}"
-                            Height="25" Width="120" Margin="7,40,7,7"/>
+                            Height="25" Width="140" Margin="7,40,7,7"/>
                     <Button Content="Edit subscriber" Command="{Binding EditSubscriberCommand}"
-                            Height="25" Width="120" Margin="7"/>
+                            Height="25" Width="140" Margin="7"/>
                     <Button Content="Deregister subscriber" Command="{Binding ToggleRegisteredCommand}"
-                            Height="25" Width="120" Margin="7"/>
+                            Height="25" Width="140" Margin="7"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Lend book" Command="{Binding LendBookCommand}" 
+                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                Height="25" Width="70" Margin="7"/>
+                        <Button Content="Return book" Command="{Binding ReturnBookCommand}"
+                                Height="25" Width="70" Margin="7"/>
+                    </StackPanel>
+                    
+                    
                 </StackPanel>
             </Grid>
             
 
             
 
-        </Grid>
-    </Grid>
-</Page>
+        </Grid>-->

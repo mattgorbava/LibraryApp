@@ -38,5 +38,15 @@ namespace LibraryApp.Model.BusinessLogicLayer
             //if they dont have any other books written, delete them
             bookDAL.DeleteBook(book);
         }
+
+        public void LendBook(Book book, Subscriber subscriber)
+        {
+            bookDAL.LendBook(book, subscriber);
+        }
+
+        public void ReturnBook(Book book, Subscriber subscriber)
+        {
+            bookDAL.ReturnBook(book, subscriber);
+        }
     }
 }
