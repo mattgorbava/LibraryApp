@@ -2,6 +2,7 @@
 using LibraryApp.Model.Entities;
 using LibraryApp.MVVM;
 using LibraryApp.View;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -24,12 +25,12 @@ namespace LibraryApp.ViewModel
             SaveCommand = new RelayCommand<object>(EditPersonnel, canExecute => TextBoxFieldsNotNull());
             PersonnelId = personnel.PersonnelId;
             Name = personnel.Name;
-            EmploymentDate = personnel.EmploymentDate;
+            EmploymentDate = personnel.EmploymentDate.ToString("M/d/yyyy h:mm:ss tt");
         }
 
         private int PersonnelId { get; set; }
         public string Name { get; set; }
-        public DateTime EmploymentDate { get; set; }
+        public string EmploymentDate { get; set; }
 
 
         private void AddPersonnel(object? obj)
@@ -37,7 +38,7 @@ namespace LibraryApp.ViewModel
             Personnel toBeAdded = new Personnel
             {
                 Name = this.Name,
-                EmploymentDate = this.EmploymentDate
+                EmploymentDate = DateTime.ParseExact(this.EmploymentDate, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture)
             };
             personnelBLL.AddPersonnel(toBeAdded);
 
@@ -52,7 +53,7 @@ namespace LibraryApp.ViewModel
             { 
                 PersonnelId = this.PersonnelId,
                 Name = this.Name,
-                EmploymentDate = this.EmploymentDate
+                EmploymentDate = DateTime.ParseExact(this.EmploymentDate, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture)
             });
             MessageBox.Show("Personnel edited successfully!");
 

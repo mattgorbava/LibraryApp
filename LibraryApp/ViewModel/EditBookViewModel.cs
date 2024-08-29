@@ -69,7 +69,7 @@ namespace LibraryApp.ViewModel
 
         public bool TextBoxFieldsNotNull()
         {
-            return !string.IsNullOrEmpty(Title) && releaseYear != null &&
+            return !string.IsNullOrEmpty(Title) && ReleaseYear != null &&
                 !string.IsNullOrEmpty(Publisher) && !string.IsNullOrEmpty(FieldOfInterest);
         }
     }

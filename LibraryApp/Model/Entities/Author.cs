@@ -1,8 +1,12 @@
-﻿namespace LibraryApp.Model.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace LibraryApp.Model.Entities
 {
     public class Author
     {
-        public int AuthorId { get; set; }
-        public string Name { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string AuthorName { get; set; }
     }
 }

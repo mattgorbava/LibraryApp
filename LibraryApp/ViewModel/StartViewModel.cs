@@ -12,13 +12,15 @@ namespace LibraryApp.ViewModel
         private readonly SubscriberBLL subscriberBLL = new SubscriberBLL();
         private readonly BookBLL bookBLL = new BookBLL();
         private readonly PersonnelBLL personnelBLL = new PersonnelBLL();
+        private readonly AuthorBLL authorBLL = new AuthorBLL();
         public ObservableCollection<Subscriber> Subscribers { get; set; }
         public ObservableCollection<Book> Books { get; set; }
         public ObservableCollection<Personnel> Personnel { get; set; }
+        public ObservableCollection<Author> Authors { get; set; }
         public Subscriber SelectedSubscriber { get; set; }
         public Book SelectedBook { get; set; }
         public Personnel SelectedPersonnel { get; set; }
-        
+        public Author SelectedAuthor { get; set; }
 
         public ICommand AddSubscriberCommand { get; set; }
         public ICommand EditSubscriberCommand { get; set; }
@@ -29,17 +31,26 @@ namespace LibraryApp.ViewModel
         public ICommand AddPersonnelCommand { get; set; }
         public ICommand EditPersonnelCommand { get; set; }
         public ICommand DeregisterPersonnelCommand { get; set; }
+        public ICommand AddAuthorToBookCommand { get; set; }
         public StartViewModel()
         {
             AddSubscriberCommand = new RelayCommand<object>(AddSubscriber);
-            EditSubscriberCommand = new RelayCommand<object>(EditSubscriber);
+            EditSubscriberCommand = new RelayCommand<object>(EditSubscriber, canExecute => SelectedSubscriber != null);
             DeregisterSubscriberCommand = new RelayCommand<object>(DeregisterSubscriber);
             AddBookCommand = new RelayCommand<object>(AddBook);
-            EditBookCommand = new RelayCommand<object>(EditBook);
+            EditBookCommand = new RelayCommand<object>(EditBook, canExecute => SelectedBook != null);
             DeleteBookCommand = new RelayCommand<object>(DeleteBook);
             AddPersonnelCommand = new RelayCommand<object>(AddPersonnel);
-            EditPersonnelCommand = new RelayCommand<object>(EditPersonnel);
+            EditPersonnelCommand = new RelayCommand<object>(EditPersonnel, canExecute => SelectedPersonnel != null);
             DeregisterPersonnelCommand = new RelayCommand<object>(DeregisterPersonnel);
+            AddAuthorToBookCommand = new RelayCommand<object>(AddAuthorToBook);
+
+            Subscribers = new ObservableCollection<Subscriber>(subscriberBLL.GetSubscribers());
+            Books = new ObservableCollection<Book>(bookBLL.GetBooks());
+            Personnel = new ObservableCollection<Personnel>(personnelBLL.GetPersonnel());
+            Authors = new ObservableCollection<Author>(authorBLL.GetAuthors());
+            Authors.Insert(0, new Author { AuthorName = "Select author" });
+            Authors.Insert(1, new Author { AuthorName = "Add new" });
         }
 
         private void AddSubscriber(object? obj)
@@ -94,7 +105,7 @@ namespace LibraryApp.ViewModel
             currentPage.NavigationService?.Navigate(new EditBookPage(SelectedBook));
         }
 
-        private void DeleteBook(object? obj) 
+        private void DeleteBook(object? obj)
         {
             if (SelectedBook == null)
             {
@@ -136,6 +147,20 @@ namespace LibraryApp.ViewModel
             personnelBLL.DeregisterPersonnel(SelectedPersonnel);
             Personnel = new ObservableCollection<Personnel>(personnelBLL.GetPersonnel());
             OnPropertyChanged(nameof(Personnel));
+        }
+
+        private void AddAuthorToBook(object? obj)
+        {
+            var currentPage = obj as StartPage;
+            if (SelectedAuthor == null || SelectedAuthor.Equals("Select author"))
+            {
+                Console.WriteLine("No author selected");
+                return;
+            }
+            else if (SelectedAuthor.Equals("Add new"))
+                currentPage?.NavigationService?.Navigate(new EditAuthorPage());
+            else
+                authorBLL.AddAuthorToBook(SelectedAuthor, SelectedBook);
         }
     }
 }

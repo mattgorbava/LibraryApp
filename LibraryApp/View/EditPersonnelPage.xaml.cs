@@ -13,13 +13,13 @@ namespace LibraryApp.View
         public EditPersonnelPage()
         {
             InitializeComponent();
-            AddPersonnelLabel.Visibility = Visibility.Visible;
+            AddPersonnelLabel.Visibility = System.Windows.Visibility.Visible;
         }
 
         public EditPersonnelPage(Personnel personnel)
         {
             InitializeComponent();
-            EditPersonnelLabel.Visibility = Visibility.Visible;
+            EditPersonnelLabel.Visibility = System.Windows.Visibility.Visible;
             DataContext = new EditPersonnelViewModel(personnel);
         }
     }

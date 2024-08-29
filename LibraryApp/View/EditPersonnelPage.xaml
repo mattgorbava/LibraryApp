@@ -4,10 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LibraryApp.View"
+      xmlns:vm="clr-namespace:LibraryApp.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EditPersonnelPage">
 
+    <Page.DataContext>
+        <vm:EditPersonnelViewModel/>
+    </Page.DataContext>
+    
     <Grid Background="White">
         <StackPanel>
             <Grid>
@@ -35,7 +40,8 @@
             </Grid>
 
             <Button Content="Save" HorizontalAlignment="Center" FontSize="25" Margin="0,40,0,0"
-                Width="100" Height="40" FontWeight="DemiBold"/>
+                Width="100" Height="40" FontWeight="DemiBold" Command="{Binding SaveCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
         </StackPanel>
     </Grid>
 </Page>

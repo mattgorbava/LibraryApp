@@ -4,6 +4,7 @@ using LibraryApp.Model.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryApp.Migrations
 {
     [DbContext(typeof(LibraryDBContext))]
-    partial class LibraryDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240829143054_AuthorRefactoring")]
+    partial class AuthorRefactoring
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,10 +27,10 @@ namespace LibraryApp.Migrations
 
             modelBuilder.Entity("LibraryApp.Model.Entities.Author", b =>
                 {
-                    b.Property<string>("AuthorName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("AuthorName");
+                    b.HasKey("Name");
 
                     b.ToTable("Author");
                 });
@@ -71,13 +74,16 @@ namespace LibraryApp.Migrations
                     b.Property<string>("BookId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("AuthorName")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("BorrowDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("BookId", "AuthorName");
+                    b.HasKey("BookId", "AuthorId");
 
                     b.HasIndex("AuthorName");
 
@@ -143,9 +149,7 @@ namespace LibraryApp.Migrations
                 {
                     b.HasOne("LibraryApp.Model.Entities.Author", "Author")
                         .WithMany()
-                        .HasForeignKey("AuthorName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AuthorName");
 
                     b.HasOne("LibraryApp.Model.Entities.Book", "Book")
                         .WithMany()

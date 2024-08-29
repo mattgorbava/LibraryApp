@@ -25,13 +25,13 @@ namespace LibraryApp.View
         public EditBookPage()
         {
             InitializeComponent();
-            AddBookLabel.Visibility = Visibility.Visible;
+            AddBookLabel.Visibility = System.Windows.Visibility.Visible;
         }
         public EditBookPage(Book book)
         {
             InitializeComponent();
             DataContext = new EditBookViewModel(book);
-            EditBookLabel.Visibility = Visibility.Visible;
+            EditBookLabel.Visibility = System.Windows.Visibility.Visible;
         }
     }
 }

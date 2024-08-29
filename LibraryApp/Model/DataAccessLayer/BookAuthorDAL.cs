@@ -19,7 +19,7 @@ namespace LibraryApp.Model.DataAccessLayer
                 {
                     BookAuthor bookAuthor = new BookAuthor();
                     bookAuthor.BookId = reader.GetString(0);
-                    bookAuthor.AuthorId = reader.GetInt32(1);
+                    bookAuthor.AuthorName = reader.GetString(1);
                     bookAuthor.BorrowDate = reader.GetDateTime(2);
                     bookAuthors.Add(bookAuthor);
                 }
@@ -38,7 +38,7 @@ namespace LibraryApp.Model.DataAccessLayer
                 SqlCommand command = new SqlCommand("AddBookAuthor", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@BookId", bookAuthor.BookId);
-                command.Parameters.AddWithValue("@AuthorId", bookAuthor.AuthorId);
+                command.Parameters.AddWithValue("@AuthorName", bookAuthor.AuthorName);
                 command.Parameters.AddWithValue("@BorrowDate", DateTime.Now);
                 command.ExecuteNonQuery();
             }
@@ -55,7 +55,7 @@ namespace LibraryApp.Model.DataAccessLayer
                 SqlCommand command = new SqlCommand("DeleteBookAuthor", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@BookId", bookAuthor.BookId);
-                command.Parameters.AddWithValue("@AuthorId", bookAuthor.AuthorId);
+                command.Parameters.AddWithValue("@AuthorName", bookAuthor.AuthorName);
                 command.ExecuteNonQuery();
             }
             catch (Exception ex) { throw ex; }

@@ -36,15 +36,16 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" HorizontalAlignment="Left">
-                    <TextBox Width="100" Height="20" Margin="5,25,5,10"/>
-                    <TextBox Width="100" Height="20" Margin="5,15"/>
-                    <TextBox Width="100" Height="20" Margin="5,10,5,15"/>
-                    <TextBox Width="100" Height="20" Margin="5,10"/>
+                    <TextBox Width="100" Height="20" Margin="5,25,5,10" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Width="100" Height="20" Margin="5,15" Text="{Binding CNP, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Width="100" Height="20" Margin="5,10,5,15" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Width="100" Height="20" Margin="5,10" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </Grid>
 
             <Button Content="Save" HorizontalAlignment="Center" FontSize="25" Margin="0,40,0,0"
-                    Width="100" Height="40" FontWeight="DemiBold"/>
+                    Width="100" Height="40" FontWeight="DemiBold" Command="{Binding SaveCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
         </StackPanel>
     </Grid>
 </Page>

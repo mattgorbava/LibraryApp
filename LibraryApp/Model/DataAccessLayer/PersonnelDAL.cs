@@ -14,7 +14,7 @@ namespace LibraryApp.Model.DataAccessLayer
                 connection.Open();
                 SqlCommand command = new SqlCommand("GetAllRowsFromTable", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@Table", "Personnel");
+                command.Parameters.AddWithValue("@TableName", "Personnel");
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {

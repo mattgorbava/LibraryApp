@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LibraryApp"
         xmlns:vm="clr-namespace:LibraryApp.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="800">
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>

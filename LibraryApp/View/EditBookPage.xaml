@@ -46,7 +46,8 @@
             </Grid>
 
             <Button Content="Save" HorizontalAlignment="Center" FontSize="25" Margin="0,40,0,0"
-                Width="100" Height="40" FontWeight="DemiBold"/>
+                Width="100" Height="40" FontWeight="DemiBold" Command="{Binding SaveCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
         </StackPanel>
     </Grid>
 </Page>

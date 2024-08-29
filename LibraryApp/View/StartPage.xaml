@@ -9,9 +9,13 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="StartPage">
 
-    <Grid Background="White">
+    <Page.DataContext>
+        <vm:StartViewModel/>
+    </Page.DataContext>
+    
+    <Grid Background="White" ScrollViewer.VerticalScrollBarVisibility="Auto">
         <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Margin="10" Padding="10">
-            <TabControl>
+            <TabControl ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <TabItem Header="Subscribers">
                     <StackPanel>
                         <DataGrid x:Name="dgSubscribers"
@@ -91,7 +95,7 @@
                                 SelectedItem="{Binding SelectedBook}"
                                 ItemsSource="{Binding Books}">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Title" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
                                 <DataGridTextColumn Header="Release year" Binding="{Binding ReleaseYear}"/>
                                 <DataGridTextColumn Header="Publisher" Binding="{Binding Publisher}"/>
                                 <DataGridTextColumn Header="Field of interest" Binding="{Binding FieldOfInterest}"/>
@@ -100,8 +104,7 @@
                                 <DataGridTextColumn Header="Is lent" Binding="{Binding IsLent}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button Content="Add book" Command="{Binding AddBookCommand}" 
                                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                     Margin="5" Padding="5" Width="110" Height="30" />
@@ -110,6 +113,11 @@
                                     Margin="5" Padding="5" Width="110" Height="30" />
                             <Button Content="Delete book" Command="{Binding DeleteBookCommand}"
                                     Margin="5" Padding="5" Width="110" Height="30" />
+                            <Button Content="Add author to book" Command="{Binding AddAuthorToBookCommand}" 
+                                    Margin="5" Padding="5" Width="110" Height="30" />
+                                    <!--CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"-->
+                            <ComboBox ItemsSource="{Binding Authors}" SelectedItem="{Binding SelectedAuthor, Mode=TwoWay}" Width="70"
+                                      FontSize="7" Height="15"/>
                         </StackPanel>
                     </StackPanel>
                 </TabItem>

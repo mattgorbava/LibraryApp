@@ -12,13 +12,14 @@ namespace LibraryApp.View
         public EditSubscriberPage()
         {
             InitializeComponent();
+            AddSubscriberLabel.Visibility = System.Windows.Visibility.Visible;
         }
 
         public EditSubscriberPage(Subscriber subscriber)
         {
             InitializeComponent();
             DataContext = new EditSubscriberViewModel(subscriber);
-            
+            EditSubscriberLabel.Visibility = System.Windows.Visibility.Visible;
         }
     }
 }
