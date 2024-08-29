@@ -52,8 +52,8 @@
                                     Padding="5"
                                     Width="110"
                                     Height="30" />
-                                <Button Content="Deregister subscriber" Command="{Binding DeregisterSubscriberCommand}" 
-                                        Margin="5" Padding="0" Width="120" Height="30" />
+                                <RadioButton Content="Registered" Command="{Binding DeregisterSubscriber}" IsChecked="True"
+                                             Width="110" Height="30" VerticalAlignment="Center" Margin="10"/>
 
                             </StackPanel>
                             

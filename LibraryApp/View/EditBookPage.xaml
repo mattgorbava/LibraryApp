@@ -12,67 +12,41 @@
     <Page.DataContext>
         <vm:EditBookViewModel/>
     </Page.DataContext>
-    
-    <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="15"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
 
-            <Grid Grid.Row="1">
+    <Grid Background="White">
+        <StackPanel>
+            <Grid>
+                <Label x:Name="AddBookLabel" Content="Add book" HorizontalAlignment="Center" 
+                   FontSize="30" FontWeight="Bold" Margin="0,0,0,20" Visibility="Hidden"/>
+                <Label x:Name="EditBookLabel" Content="Edit book" HorizontalAlignment="Center" 
+                   FontSize="30" FontWeight="Bold" Margin="0,0,0,20" Visibility="Hidden"/>
+            </Grid>
+
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <DataGrid ItemsSource="{Binding Books}"
-                SelectedItem="{Binding SelectedBook}"
-                CanUserAddRows="False" CanUserDeleteRows="False"
-                AutoGenerateColumns="False">
+                <StackPanel HorizontalAlignment="Right">
+                    <Label Content="Title:" HorizontalAlignment="Center" Margin="5,20,5,10"/>
+                    <Label Content="Publisher:" HorizontalAlignment="Center" Margin="5,10"/>
+                    <Label Content="Release year:" HorizontalAlignment="Center" Margin="5,10"/>
+                    <Label Content="Field of interest:" HorizontalAlignment="Center" Margin="5,10"/>
+                    <Label Content="Book Id (string):" HorizontalAlignment="Center" Margin="5,10"/>
+                </StackPanel>
 
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="2*"/>
-                        <DataGridTextColumn Header="Release year" Binding="{Binding ReleaseYear}" Width="2*"/>
-                        <DataGridTextColumn Header="Publisher" Binding="{Binding Publisher}" Width="3*"/>
-                        <DataGridTextColumn Header="Field of interest" Binding="{Binding FieldOfInterest}" Width="3*"/>
-                        <DataGridTextColumn Header="Is lost" Binding="{Binding IsLost}" Width="1*"/>
-                        <DataGridTextColumn Header="Is lendable" Binding="{Binding IsLendable}" Width="1*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-
-                <StackPanel Grid.Column="1">
-                    <Label Content="UniqueId(string)"/>
-                    <TextBox Margin="3" Text="{Binding BookId, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Label Content="Title"/>
-                    <TextBox Margin="3" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Label Content="Release year"/>
-                    <TextBox Margin="3" Text="{Binding ReleaseYear, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Label Content="Publisher"/>
-                    <TextBox Margin="3" Text="{Binding Publisher, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Label Content="Field of interest"/>
-                    <TextBox Margin="3" Text="{Binding FieldOfInterest, UpdateSourceTrigger=PropertyChanged}"/>
-
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Add book" Command="{Binding AddBookCommand}"
-                                Height="25" Width="60" Margin="7,20,7,7"/>
-                        <Button Content="Edit book" Command="{Binding EditBookCommand}"
-                                Height="25" Width="60" Margin="7,20,7,7"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Delete book" Command="{Binding DeleteBookCommand}"
-                                Height="25" Width="60" Margin="7"/>
-                        <Button Content="Mark as lost" Command="{Binding ToggleLostCommand}"
-                                Height="25" Width="60" Margin="7"/>
-                    </StackPanel>
-                    <Button Content="Mark as unlendable" Command="{Binding ToggleLendableCommand}"
-                            Height="25" Width="120" Margin="7"/>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left">
+                    <TextBox Width="100" Height="20" Margin="5,25,5,10" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Width="100" Height="20" Margin="5,15" Text="{Binding Publisher, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Width="100" Height="20" Margin="5,10,5,15" Text="{Binding ReleaseYear, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Width="100" Height="20" Margin="5,10" Text="{Binding FieldOfInterest, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Width="100" Height="20" Margin="5,15" Text="{Binding BookId, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </Grid>
 
-
-
-
-        </Grid>
+            <Button Content="Save" HorizontalAlignment="Center" FontSize="25" Margin="0,40,0,0"
+                Width="100" Height="40" FontWeight="DemiBold"/>
+        </StackPanel>
     </Grid>
 </Page>

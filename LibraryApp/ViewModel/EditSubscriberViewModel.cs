@@ -12,7 +12,6 @@ namespace LibraryApp.ViewModel
 {
     public class EditSubscriberViewModel : BaseViewModel
     {
-        //private MainWindowViewModel mainWindowVM = new MainWindowViewModel();
         private readonly SubscriberBLL subscriberBLL = new SubscriberBLL();
 
         public ICommand SaveCommand { get; set; }
