@@ -48,5 +48,15 @@ namespace LibraryApp.Model.BusinessLogicLayer
         {
             bookDAL.ReturnBook(book, subscriber);
         }
+
+        public List<Book> SelectBorrowedBooks(Subscriber subscriber)
+        {
+            return bookDAL.SelectBorrowedBooks(subscriber);
+        }
+
+        public List<Book> SelectAvailableBooks(Subscriber subscriber)
+        {
+            return bookDAL.SelectAvailableBooks(subscriber);
+        }
     }
 }

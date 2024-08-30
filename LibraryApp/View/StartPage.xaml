@@ -22,9 +22,10 @@
                                   AutoGenerateColumns="False"
                                   IsReadOnly="True"
                                   CanUserAddRows="False"
-                                      Height="280"
-                                      SelectedItem="{Binding SelectedSubscriber}"
-                                      ItemsSource="{Binding Subscribers}">
+                                  Height="280"
+                                  SelectedItem="{Binding SelectedSubscriber}"
+                                  ItemsSource="{Binding Subscribers}"
+                                  SelectionMode="Single">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
                                 <DataGridTextColumn Header="CNP" Binding="{Binding CNP}" />
@@ -56,7 +57,8 @@
                                     Padding="5"
                                     Width="110"
                                     Height="30" />
-                                <RadioButton Content="Registered" Command="{Binding DeregisterSubscriber}" IsChecked="True"
+                                <CheckBox Content="Registered" Command="{Binding DeregisterSubscriberCommand}" 
+                                             IsChecked="{Binding SelectedSubscriber.IsRegistered, Mode=OneWay}"
                                              Width="110" Height="30" VerticalAlignment="Center" Margin="10"/>
 
                             </StackPanel>
@@ -65,18 +67,23 @@
                                 <Button 
                                     Content="Lend book" 
                                     Command="{Binding LendBookCommand}" 
-                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                     Margin="5" 
                                     Padding="5" 
                                     Width="110" 
                                     Height="30" />
+                                    <!--CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"-->
+                                <ComboBox ItemsSource="{Binding AvailableBooks}" SelectedItem="{Binding SelectedBook, Mode=TwoWay}" Width="100"
+                                          FontSize="10" Height="20" DisplayMemberPath="AuthorName"/>
+                                
                                 <Button Content="Return book"
                                     Command="{Binding ReturnBookCommand}"
-                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                     Margin="5"
                                     Padding="5"
                                     Width="110"
                                     Height="30" />
+                                    <!--CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"-->
+                                <ComboBox ItemsSource="{Binding BorrowedBooks}" SelectedItem="{Binding SelectedBook, Mode=TwoWay}" Width="100"
+                                          FontSize="10" Height="20" DisplayMemberPath="AuthorName"/>
                                 <!--<Button Content="Deregister subscriber" Command="{Binding DeregisterSubscriberCommand}" 
                                         Margin="5" Padding="0" Width="120" Height="30" />-->
 
@@ -93,7 +100,8 @@
                                 CanUserAddRows="False"
                                 Height="280"
                                 SelectedItem="{Binding SelectedBook}"
-                                ItemsSource="{Binding Books}">
+                                ItemsSource="{Binding Books}"
+                                SelectionMode="Single">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
                                 <DataGridTextColumn Header="Release year" Binding="{Binding ReleaseYear}"/>
@@ -104,20 +112,42 @@
                                 <DataGridTextColumn Header="Is lent" Binding="{Binding IsLent}"/>
                             </DataGrid.Columns>
                         </DataGrid>
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                        </Grid>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button Content="Add book" Command="{Binding AddBookCommand}" 
                                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                                    Margin="5" Padding="5" Width="110" Height="30" />
+                                    Margin="5" Padding="5" Width="120" Height="30" />
                             <Button Content="Edit book" Command="{Binding EditBookCommand}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                                    Margin="5" Padding="5" Width="110" Height="30" />
+                                    Margin="5" Padding="5" Width="120" Height="30" />
                             <Button Content="Delete book" Command="{Binding DeleteBookCommand}"
-                                    Margin="5" Padding="5" Width="110" Height="30" />
+                                    Margin="5" Padding="5" Width="120" Height="30" />
                             <Button Content="Add author to book" Command="{Binding AddAuthorToBookCommand}" 
-                                    Margin="5" Padding="5" Width="110" Height="30" />
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                    Margin="5" Padding="5" Width="120" Height="30" />
                                     <!--CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"-->
-                            <ComboBox ItemsSource="{Binding Authors}" SelectedItem="{Binding SelectedAuthor, Mode=TwoWay}" Width="70"
-                                      FontSize="7" Height="15"/>
+                            <ComboBox ItemsSource="{Binding Authors}" SelectedItem="{Binding SelectedAuthor, Mode=TwoWay}" Width="100"
+                                      FontSize="10" Height="20" DisplayMemberPath="AuthorName"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
+                            <CheckBox Content="Lendable" Command="{Binding ToggleLendableCommand}" 
+                                    IsChecked="{Binding SelectedBook.IsLendable, Mode=OneWay}"
+                                    Width="110" Height="30" VerticalAlignment="Center" Margin="10"/>
+                            <CheckBox Content="Lost" Command="{Binding ToggleLostCommand}" 
+                                    IsChecked="{Binding SelectedBook.IsLost, Mode=OneWay}"
+                                    Width="110" Height="30" VerticalAlignment="Center" Margin="10"/>
+                            <CheckBox Content="Lent" Command="{Binding ToggleLentCommand}" 
+                                    IsChecked="{Binding SelectedBook.IsLent, Mode=OneWay}"
+                                    Width="110" Height="30" VerticalAlignment="Center" Margin="10"/>
+
+
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
@@ -130,7 +160,8 @@
                                 CanUserAddRows="False"
                                 Height="280"
                                 SelectedItem="{Binding SelectedPersonnel}"
-                                ItemsSource="{Binding Personnel}">
+                                ItemsSource="{Binding Personnel}"
+                                SelectionMode="Single">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Title" Binding="{Binding Name}"/>
                                 <DataGridTextColumn Header="Employment date" Binding="{Binding EmploymentDate}"/>

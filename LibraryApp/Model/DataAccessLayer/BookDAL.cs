@@ -1,5 +1,6 @@
 ﻿using LibraryApp.Model.Entities;
 using Microsoft.Data.SqlClient;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace LibraryApp.Model.DataAccessLayer
 {
@@ -95,6 +96,7 @@ namespace LibraryApp.Model.DataAccessLayer
                 command.Parameters.AddWithValue("@FieldOfInterest", book.FieldOfInterest);
                 command.Parameters.AddWithValue("@IsLendable", book.IsLendable);
                 command.Parameters.AddWithValue("@IsLost", book.IsLost);
+                command.Parameters.AddWithValue("@IsLent", book.IsLent);
                 command.ExecuteNonQuery();
             }
             catch (Exception ex) { throw ex; }
@@ -146,6 +148,66 @@ namespace LibraryApp.Model.DataAccessLayer
             }
             catch (Exception ex) { throw ex; }
             finally { connection.Close(); }
+        }
+
+        public List<Book> SelectBorrowedBooks(Subscriber subscriber)
+        {
+            var connection = DbHelper.Connection;
+            List<Book> books = new List<Book>();
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SelectBorrowedBooks", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@PersonId", subscriber.PersonId);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Book book = new Book();
+                    book.BookId = reader.GetString(0);
+                    book.Title = reader.GetString(1);
+                    book.ReleaseYear = reader.GetInt32(2);
+                    book.Publisher = reader.GetString(3);
+                    book.FieldOfInterest = reader.GetString(4);
+                    book.IsLost = reader.GetBoolean(5);
+                    book.IsLendable = reader.GetBoolean(6);
+                    books.Add(book);
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            finally { connection.Close(); }
+
+            return books;
+        }
+
+        public List<Book> SelectAvailableBooks(Subscriber subscriber)
+        {
+            var connection = DbHelper.Connection;
+            List<Book> books = new List<Book>();
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SelectAvailableBooks", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                //command.Parameters.AddWithValue("@PersonId", subscriber.PersonId);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Book book = new Book();
+                    book.BookId = reader.GetString(0);
+                    book.Title = reader.GetString(1);
+                    book.ReleaseYear = reader.GetInt32(2);
+                    book.Publisher = reader.GetString(3);
+                    book.FieldOfInterest = reader.GetString(4);
+                    book.IsLost = reader.GetBoolean(5);
+                    book.IsLendable = reader.GetBoolean(6);
+                    books.Add(book);
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            finally { connection.Close(); }
+
+            return books;
         }
     }
 

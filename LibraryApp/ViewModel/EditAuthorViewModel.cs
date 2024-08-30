@@ -1,73 +1,38 @@
 ﻿using LibraryApp.Model.BusinessLogicLayer;
 using LibraryApp.Model.Entities;
 using LibraryApp.MVVM;
-using System.Collections.ObjectModel;
+using LibraryApp.View;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace LibraryApp.ViewModel
 {
-    class EditAuthorViewModel: BaseViewModel
+    public class EditAuthorViewModel: BaseViewModel
     {
-        //private readonly AuthorBLL authorBLL = new AuthorBLL();
+        private readonly AuthorBLL authorBLL = new AuthorBLL();
+        public ICommand SaveCommand { get; set; }
+        public string Name { get; set; }
+        public Book SelectedBook { get; set; }
 
-        //public ObservableCollection<Author> Authors { get; set; }
-        
-        //public RelayCommand AddAuthorCommand;
-        //public RelayCommand DeleteAuthorCommand;
-        
-        //public EditAuthorViewModel()
-        //{
-        //    //Authors = new ObservableCollection<Author>(authorBLL.GetAuthors());
-        //    AddAuthorCommand = new RelayCommand(execute => AddAuthor(), canExecute => !string.IsNullOrEmpty(Name));
-        //    DeleteAuthorCommand = new RelayCommand(execute => DeleteAuthor(), canExecute => SelectedAuthor != null);
-        //}
-        //public EditAuthorViewModel(Book book) 
-        //{ 
-        //    selectedBook = book;
-        //    //Authors = new ObservableCollection<Author>(authorBLL.GetAuthors());
-        //    AddAuthorCommand = new RelayCommand(execute => AddAuthorToBook(), canExecute => SelectedAuthor != null);
-        //    DeleteAuthorCommand = new RelayCommand(execute => RemoveAuthorFromBook(), canExecute => SelectedAuthor != null);
-        //}
+        public EditAuthorViewModel(Book book)
+        {
+            SaveCommand = new RelayCommand<object>(AddAuthor, canExecute => !String.IsNullOrEmpty(Name));
+            SelectedBook = book;
+        }
 
-        //private Author selectedAuthor;
-        //public Author SelectedAuthor
-        //{
-        //    get { return selectedAuthor; }
-        //    set 
-        //    {
-        //        selectedAuthor = value;
-        //        Name = selectedAuthor.Name;
-        //        OnPropertyChanged();
-        //    }
-        //}
-        //private Book selectedBook;
+        private void AddAuthor(object? obj)
+        {
+            Author toBeAdded = new Author
+            {
+                AuthorName = this.Name
+            };
+            authorBLL.AddAuthor(toBeAdded);
+            authorBLL.AddAuthorToBook(toBeAdded, SelectedBook);
 
-        //private string name;
-        //public string Name
-        //{
-        //    get { return name; }
-        //    set 
-        //    { 
-        //        name = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        //private void AddAuthor()
-        //{
-        //    authorBLL.AddAuthor(new Author { Name = name });
-        //}
-
-        //private void DeleteAuthor()
-        //{
-        //    authorBLL.RemoveAuthor(selectedAuthor);
-        //}
-        //private void AddAuthorToBook()
-        //{
-        //    authorBLL.AddAuthorToBook(selectedAuthor, selectedBook);
-        //}
-        //private void RemoveAuthorFromBook()
-        //{
-        //    authorBLL.RemoveAuthorFromBook(selectedAuthor, selectedBook);
-        //}
+            MessageBox.Show("Author added successfully!");
+            var currentPage = obj as Page;
+            currentPage?.NavigationService?.Navigate(new StartPage());
+        }
     }
 }

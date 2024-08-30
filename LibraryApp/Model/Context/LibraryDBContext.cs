@@ -10,6 +10,7 @@ namespace LibraryApp.Model.Context
         public DbSet<Personnel> Personnel { get; set; }
         public DbSet<Author> Author { get; set; }
         public DbSet<BookAuthor> BookAuthor { get; set; }
+        public DbSet<SubscriberBook> SubscriberBook { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

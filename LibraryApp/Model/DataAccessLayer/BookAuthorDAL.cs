@@ -20,7 +20,6 @@ namespace LibraryApp.Model.DataAccessLayer
                     BookAuthor bookAuthor = new BookAuthor();
                     bookAuthor.BookId = reader.GetString(0);
                     bookAuthor.AuthorName = reader.GetString(1);
-                    bookAuthor.BorrowDate = reader.GetDateTime(2);
                     bookAuthors.Add(bookAuthor);
                 }
             }

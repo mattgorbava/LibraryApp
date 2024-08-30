@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryApp.Model.Entities
 {
@@ -10,6 +9,5 @@ namespace LibraryApp.Model.Entities
         public virtual Book Book { get; set; }
         public string AuthorName { get; set; }
         public virtual Author Author { get; set; }
-        public DateTime BorrowDate { get; set; }
     }
 }

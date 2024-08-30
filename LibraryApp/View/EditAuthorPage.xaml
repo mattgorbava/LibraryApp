@@ -4,43 +4,35 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LibraryApp.View"
+      xmlns:vm="clr-namespace:LibraryApp.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EditAuthorPage">
 
-    <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="15"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-
-                <DataGrid ItemsSource="{Binding Authors}"
-                SelectedItem="{Binding SelectedAuthor}"
-                CanUserAddRows="False" CanUserDeleteRows="False"
-                AutoGenerateColumns="False">
-
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-
-                <StackPanel Grid.Column="1">
-                    <Label Content="Name"/>
-                    <TextBox Margin="3" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-
-                    <Button Content="Add author" Command="{Binding AddAuthor}"
-                        Height="25" Width="120" Margin="7,40,7,7"/>
-                    <Button Content="Delete author" Command="{Binding DeleteAuthor}"
-                        Height="25" Width="120" Margin="7"/>
-                </StackPanel>
+    <!--<Page.DataContext>
+        <vm:EditAuthorViewModel/>
+    </Page.DataContext>-->
+    
+    <Grid Background="White">
+        <StackPanel>
+            <Grid>
+                <Label x:Name="AddAuthorLabel" Content="Add author" HorizontalAlignment="Center" 
+                       FontSize="30" FontWeight="Bold" Margin="0,0,0,20" Visibility="Visible"/>
             </Grid>
-        </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                 
+                <Label Content="Name:" HorizontalAlignment="Right" Margin="5,20,5,10"/>
+                <TextBox HorizontalAlignment="Left" Grid.Column="1" Width="100" Height="20" Margin="5,25,5,10" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+
+            <Button Content="Save" HorizontalAlignment="Center" FontSize="25" Margin="0,40,0,0"
+                    Width="100" Height="40" FontWeight="DemiBold" Command="{Binding SaveCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
+        </StackPanel>
     </Grid>
 </Page>

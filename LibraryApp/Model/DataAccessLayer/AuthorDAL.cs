@@ -12,13 +12,11 @@ namespace LibraryApp.Model.DataAccessLayer
             try
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("GetAllRowsFromTable", connection);
-                command.Parameters.AddWithValue("@Table", "Author");
+                SqlCommand command = new SqlCommand("SelectAuthors", connection);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     Author author = new Author();
-                    //author.AuthorId = reader.GetInt32(0);
                     author.AuthorName = reader.GetString(0);
                     authors.Add(author);
                 }
@@ -36,7 +34,7 @@ namespace LibraryApp.Model.DataAccessLayer
                 connection.Open();
                 SqlCommand command = new SqlCommand("AddAuthor", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@Name", author.AuthorName);
+                command.Parameters.AddWithValue("@AuthorName", author.AuthorName);
                 command.ExecuteNonQuery();
             }
             catch (Exception ex) { throw ex; }
@@ -51,7 +49,7 @@ namespace LibraryApp.Model.DataAccessLayer
                 connection.Open();
                 SqlCommand command = new SqlCommand("DeleteAuthor", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@AuthorId", author.AuthorName);
+                command.Parameters.AddWithValue("@AuthorName", author.AuthorName);
                 command.ExecuteNonQuery();
             }
             catch (Exception ex) { throw ex; }
@@ -66,7 +64,7 @@ namespace LibraryApp.Model.DataAccessLayer
                 connection.Open();
                 SqlCommand command = new SqlCommand("AddAuthorToBook", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@AuthorId", author.AuthorName);
+                command.Parameters.AddWithValue("@AuthorName", author.AuthorName);
                 command.Parameters.AddWithValue("@BookId", book.BookId);
                 command.ExecuteNonQuery();
             }
@@ -82,7 +80,7 @@ namespace LibraryApp.Model.DataAccessLayer
                 connection.Open();
                 SqlCommand command = new SqlCommand("RemoveAuthorFromBook", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@AuthorId", author.AuthorName);
+                command.Parameters.AddWithValue("@AuthorName", author.AuthorName);
                 command.Parameters.AddWithValue("@BookId", book.BookId);
                 command.ExecuteNonQuery();
             }
