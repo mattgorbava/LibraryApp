@@ -4,9 +4,6 @@ using LibraryApp.ViewModel;
 
 namespace LibraryApp.View
 {
-    /// <summary>
-    /// Interaction logic for EditAuthorPage.xaml
-    /// </summary>
     public partial class EditAuthorPage : Page
     {
         public EditAuthorPage()

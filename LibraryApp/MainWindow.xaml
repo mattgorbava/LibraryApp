@@ -16,20 +16,5 @@
         <DockPanel>
             <Frame x:Name="MainFrame" Content="{Binding CurrentPage}"/>
         </DockPanel>
-        <!--<TabControl ItemsSource="{Binding Pages}" SelectedItem="{Binding SelectedPage}">
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Header}" />
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <Frame Source="{Binding PageSource}" NavigationUIVisibility="Hidden"/>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
-        </TabControl>-->
-
-        
     </Grid> 
 </Window>

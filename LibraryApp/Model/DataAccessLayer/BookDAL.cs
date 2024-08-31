@@ -1,6 +1,5 @@
 ﻿using LibraryApp.Model.Entities;
 using Microsoft.Data.SqlClient;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace LibraryApp.Model.DataAccessLayer
 {
@@ -26,7 +25,7 @@ namespace LibraryApp.Model.DataAccessLayer
                     book.FieldOfInterest = reader.GetString(4);
                     book.IsLost = reader.GetBoolean(5);
                     book.IsLendable = reader.GetBoolean(6);
-                    //book.PersonId = reader.GetInt32(7);
+                    book.IsLent= reader.GetBoolean(7);
                     books.Add(book);
                 }
             }
@@ -180,7 +179,7 @@ namespace LibraryApp.Model.DataAccessLayer
             return books;
         }
 
-        public List<Book> SelectAvailableBooks(Subscriber subscriber)
+        public List<Book> SelectAvailableBooks()
         {
             var connection = DbHelper.Connection;
             List<Book> books = new List<Book>();
@@ -189,7 +188,6 @@ namespace LibraryApp.Model.DataAccessLayer
                 connection.Open();
                 SqlCommand command = new SqlCommand("SelectAvailableBooks", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                //command.Parameters.AddWithValue("@PersonId", subscriber.PersonId);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {

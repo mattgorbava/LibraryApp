@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using LibraryApp.Model.Entities;
 using LibraryApp.Model.BusinessLogicLayer;
-using Microsoft.Identity.Client;
 using System.Windows;
 
 namespace LibraryApp.ViewModel
@@ -16,8 +15,27 @@ namespace LibraryApp.ViewModel
         private readonly PersonnelBLL personnelBLL = new PersonnelBLL();
         private readonly AuthorBLL authorBLL = new AuthorBLL();
         public ObservableCollection<Subscriber> Subscribers { get; set; }
-        public ObservableCollection<Book> BorrowedBooks { get; set; }
-        public ObservableCollection<Book> AvailableBooks { get; set; }
+
+        private ObservableCollection<Book> borrowedBooks;
+
+        public ObservableCollection<Book> BorrowedBooks
+        {
+            get { return borrowedBooks; }
+            set 
+            { 
+                borrowedBooks = value;
+                OnPropertyChanged(nameof(BorrowedBooks));
+            }
+        }
+
+        private ObservableCollection<Book> availableBooks;
+
+        public ObservableCollection<Book> AvailableBooks
+        {
+            get { return availableBooks; }
+            set { availableBooks = value; }
+        }
+
         public ObservableCollection<Book> Books { get; set; }
         public ObservableCollection<Personnel> Personnel { get; set; }
         public ObservableCollection<Author> Authors { get; set; }
@@ -27,11 +45,11 @@ namespace LibraryApp.ViewModel
         public Subscriber SelectedSubscriber
         {
             get { return selectedSubscriber; }
-            set 
-            { 
+            set
+            {
                 selectedSubscriber = value;
-                BorrowedBooks = new ObservableCollection<Book>(bookBLL.SelectBorrowedBooks(selectedSubscriber));
                 OnPropertyChanged();
+                BorrowedBooks = new ObservableCollection<Book>(bookBLL.SelectBorrowedBooks(SelectedSubscriber));
             }
         }
 
@@ -101,7 +119,7 @@ namespace LibraryApp.ViewModel
             Personnel = new ObservableCollection<Personnel>(personnelBLL.GetPersonnel());
             Authors = new ObservableCollection<Author>(authorBLL.GetAuthors());
             Authors.Insert(0, new Author { AuthorName = "<Add new>" });
-            AvailableBooks = new ObservableCollection<Book>(bookBLL.SelectAvailableBooks(selectedSubscriber));
+            AvailableBooks = new ObservableCollection<Book>(bookBLL.SelectAvailableBooks());
         }
 
         private void AddSubscriber(object? obj)
@@ -196,7 +214,8 @@ namespace LibraryApp.ViewModel
                 Console.WriteLine("No personnel selected");
                 return;
             }
-            personnelBLL.DeregisterPersonnel(SelectedPersonnel);
+            SelectedPersonnel.IsDeregistered = !SelectedPersonnel.IsDeregistered;
+            personnelBLL.EditPersonnel(SelectedPersonnel);
             Personnel = new ObservableCollection<Personnel>(personnelBLL.GetPersonnel());
             OnPropertyChanged(nameof(Personnel));
         }
@@ -222,44 +241,35 @@ namespace LibraryApp.ViewModel
 
         private void ToggleLendable(object? obj)
         {
-            //if (obj is not StartPage currentPage)
-            //{
-            //    Console.WriteLine("Current page is not StartPage");
-            //    return;
-            //}
-
             SelectedBook.IsLendable = !SelectedBook.IsLendable;
             bookBLL.EditBook(SelectedBook);
             Books = new ObservableCollection<Book>(bookBLL.GetBooks());
+            AvailableBooks = new ObservableCollection<Book>(bookBLL.SelectAvailableBooks());
+            BorrowedBooks = new ObservableCollection<Book>(bookBLL.SelectBorrowedBooks(SelectedSubscriber));
             OnPropertyChanged(nameof(Books));
+            OnPropertyChanged(nameof(AvailableBooks));
         }
 
         private void ToggleLost(object? obj)
         {
-            //if (obj is not StartPage currentPage)
-            //{
-            //    Console.WriteLine("Current page is not StartPage");
-            //    return;
-            //}
-
             SelectedBook.IsLost = !SelectedBook.IsLost;
             bookBLL.EditBook(SelectedBook);
             Books = new ObservableCollection<Book>(bookBLL.GetBooks());
+            AvailableBooks = new ObservableCollection<Book>(bookBLL.SelectAvailableBooks());
+            BorrowedBooks = new ObservableCollection<Book>(bookBLL.SelectBorrowedBooks(SelectedSubscriber));
             OnPropertyChanged(nameof(Books));
+            OnPropertyChanged(nameof(AvailableBooks));
         }
 
         private void ToggleLent(object? obj)
         {
-            //if (obj is not StartPage currentPage)
-            //{
-            //    Console.WriteLine("Current page is not StartPage");
-            //    return;
-            //}
-
             SelectedBook.IsLent = !SelectedBook.IsLent;
             bookBLL.EditBook(SelectedBook);
             Books = new ObservableCollection<Book>(bookBLL.GetBooks());
+            AvailableBooks = new ObservableCollection<Book>(bookBLL.SelectAvailableBooks());
+            //BorrowedBooks = new ObservableCollection<Book>(bookBLL.SelectBorrowedBooks(SelectedSubscriber));
             OnPropertyChanged(nameof(Books));
+            OnPropertyChanged(nameof(AvailableBooks));
         }
 
         private void LendBook(object? obj)
@@ -276,9 +286,13 @@ namespace LibraryApp.ViewModel
             }
 
             bookBLL.LendBook(SelectedBook, SelectedSubscriber);
-            SelectedBook.IsLent = true;
+            ToggleLent(null);
             Books = new ObservableCollection<Book>(bookBLL.GetBooks());
+            AvailableBooks = new ObservableCollection<Book>(bookBLL.SelectAvailableBooks());
+            BorrowedBooks = new ObservableCollection<Book>(bookBLL.SelectBorrowedBooks(SelectedSubscriber));
             OnPropertyChanged(nameof(Books));
+            OnPropertyChanged(nameof(AvailableBooks));
+            OnPropertyChanged(nameof(BorrowedBooks));
         }
 
         private void ReturnBook(object? obj)
@@ -290,9 +304,12 @@ namespace LibraryApp.ViewModel
             }
 
             bookBLL.ReturnBook(SelectedBook, SelectedSubscriber);
-            SelectedBook.IsLent = false;
+            ToggleLent(null);
             Books = new ObservableCollection<Book>(bookBLL.GetBooks());
+            AvailableBooks = new ObservableCollection<Book>(bookBLL.SelectAvailableBooks());
+            BorrowedBooks = new ObservableCollection<Book>(bookBLL.SelectBorrowedBooks(SelectedSubscriber));
             OnPropertyChanged(nameof(Books));
+            OnPropertyChanged(nameof(AvailableBooks));
         }
     }
 }

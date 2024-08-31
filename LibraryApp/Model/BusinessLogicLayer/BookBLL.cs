@@ -24,7 +24,6 @@ namespace LibraryApp.Model.BusinessLogicLayer
         public void AddBook(Book book)
         {
             bookDAL.AddBook(book);
-            //add BookAuthor entity
         }
 
         public void EditBook(Book book)
@@ -54,9 +53,9 @@ namespace LibraryApp.Model.BusinessLogicLayer
             return bookDAL.SelectBorrowedBooks(subscriber);
         }
 
-        public List<Book> SelectAvailableBooks(Subscriber subscriber)
+        public List<Book> SelectAvailableBooks()
         {
-            return bookDAL.SelectAvailableBooks(subscriber);
+            return bookDAL.SelectAvailableBooks();
         }
     }
 }

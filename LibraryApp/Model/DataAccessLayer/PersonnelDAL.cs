@@ -71,7 +71,10 @@ namespace LibraryApp.Model.DataAccessLayer
                 connection.Open();
                 SqlCommand command = new SqlCommand("EditPersonnel", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@PersonnelId", personnel.PersonnelId);
                 command.Parameters.AddWithValue("@Name", personnel.Name);
+                command.Parameters.AddWithValue("@EmploymentDate", personnel.EmploymentDate);  
+                command.Parameters.AddWithValue("@IsDeregistered", personnel.IsDeregistered);
                 command.ExecuteNonQuery();
             }
             catch (Exception ex) { throw ex; }

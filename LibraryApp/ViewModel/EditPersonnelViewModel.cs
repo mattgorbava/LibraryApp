@@ -38,7 +38,7 @@ namespace LibraryApp.ViewModel
             Personnel toBeAdded = new Personnel
             {
                 Name = this.Name,
-                EmploymentDate = DateTime.ParseExact(this.EmploymentDate, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture)
+                EmploymentDate = DateTime.ParseExact(this.EmploymentDate, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)
             };
             personnelBLL.AddPersonnel(toBeAdded);
 

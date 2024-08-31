@@ -71,9 +71,8 @@
                                     Padding="5" 
                                     Width="110" 
                                     Height="30" />
-                                    <!--CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"-->
                                 <ComboBox ItemsSource="{Binding AvailableBooks}" SelectedItem="{Binding SelectedBook, Mode=TwoWay}" Width="100"
-                                          FontSize="10" Height="20" DisplayMemberPath="AuthorName"/>
+                                          FontSize="10" Height="20" DisplayMemberPath="Title"/>
                                 
                                 <Button Content="Return book"
                                     Command="{Binding ReturnBookCommand}"
@@ -81,11 +80,8 @@
                                     Padding="5"
                                     Width="110"
                                     Height="30" />
-                                    <!--CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"-->
-                                <ComboBox ItemsSource="{Binding BorrowedBooks}" SelectedItem="{Binding SelectedBook, Mode=TwoWay}" Width="100"
-                                          FontSize="10" Height="20" DisplayMemberPath="AuthorName"/>
-                                <!--<Button Content="Deregister subscriber" Command="{Binding DeregisterSubscriberCommand}" 
-                                        Margin="5" Padding="0" Width="120" Height="30" />-->
+                                <ComboBox ItemsSource="{Binding BorrowedBooks}" SelectedItem="{Binding SelectedBook, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"
+                                          FontSize="10" Height="20" DisplayMemberPath="Title"/>
 
                             </StackPanel>
                         </Grid>
@@ -131,7 +127,6 @@
                             <Button Content="Add author to book" Command="{Binding AddAuthorToBookCommand}" 
                                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                     Margin="5" Padding="5" Width="120" Height="30" />
-                                    <!--CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"-->
                             <ComboBox ItemsSource="{Binding Authors}" SelectedItem="{Binding SelectedAuthor, Mode=TwoWay}" Width="100"
                                       FontSize="10" Height="20" DisplayMemberPath="AuthorName"/>
                         </StackPanel>
@@ -176,8 +171,9 @@
                             <Button Content="Edit personnel" Command="{Binding EditPersonnelCommand}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                     Margin="5" Padding="5" Width="110" Height="30" />
-                            <Button Content="Deregister personnel" Command="{Binding DeregisterPersonnelCommand}"
-                                    Margin="5" Padding="0" Width="120" Height="30" />
+                            <CheckBox Content="Deregistered" Command="{Binding DeregisterPersonnelCommand}" 
+                                    IsChecked="{Binding SelectedPersonnel.IsDeregistered, Mode=OneWay}"
+                                    Width="110" Height="30" VerticalAlignment="Center" Margin="10"/>
                         </StackPanel>
                     </StackPanel>
                 </TabItem>

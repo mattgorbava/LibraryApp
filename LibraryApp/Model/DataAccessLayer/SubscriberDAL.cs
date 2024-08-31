@@ -14,7 +14,6 @@ namespace LibraryApp.Model.DataAccessLayer
                 connection.Open();
                 SqlCommand command = new SqlCommand("SelectAllSubscribersAlphabetically", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                //command.Parameters.AddWithValue("@TableName", "People");
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {

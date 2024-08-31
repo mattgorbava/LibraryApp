@@ -17,9 +17,6 @@ using System.Windows.Shapes;
 
 namespace LibraryApp.View
 {
-    /// <summary>
-    /// Interaction logic for EditBookPage.xaml
-    /// </summary>
     public partial class EditBookPage : Page
     {
         public EditBookPage()

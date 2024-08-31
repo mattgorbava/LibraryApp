@@ -9,10 +9,6 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EditAuthorPage">
 
-    <!--<Page.DataContext>
-        <vm:EditAuthorViewModel/>
-    </Page.DataContext>-->
-    
     <Grid Background="White">
         <StackPanel>
             <Grid>
